@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  /* Chozy 디자인 토큰 — Figma 확정값으로 교체 예정 */
+  --color-primary: #f0766b;
+  --color-primary-light: #fdeeec;
+  --font-sans: "Pretendard", "Pretendard Variable", -apple-system, BlinkMacSystemFont,
+    system-ui, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+}
+
+html,
+body {
+  font-family: var(--font-sans);
+}
