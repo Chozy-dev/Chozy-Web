@@ -23,6 +23,7 @@ const KEYWORD_POOL = [
   "캠핑 의자", "여행용 파우치", "차량용 방향제", "등산 스틱", "캠핑 랜턴 거치대",
 ];
 
+/* 순위 변동: up(▲n단계) / down(▼n단계) / new(신규) / flat(-) */
 export function buildKeywordData(count) {
   return Array.from({ length: count }, (_, i) => {
     const rank = i + 1;
@@ -30,12 +31,8 @@ export function buildKeywordData(count) {
     const name = KEYWORD_POOL[i % KEYWORD_POOL.length] + (cycle > 1 ? ` ${cycle}차` : "");
     const mod = rank % 4;
     const change = mod === 1 ? "up" : mod === 2 ? "down" : mod === 0 ? "new" : "flat";
-    const pct =
-      change === "up" ? `+${((rank * 13) % 160) + 15}%`
-      : change === "down" ? `▼${(rank % 5) + 1}단계`
-      : change === "new" ? "신규"
-      : "-";
-    return { rank, name, change, pct };
+    const steps = change === "up" ? ((rank * 3) % 4) + 1 : change === "down" ? (rank % 3) + 1 : 0;
+    return { rank, name, change, steps };
   });
 }
 
@@ -63,24 +60,19 @@ export function buildProductData(count) {
   });
 }
 
-export const AI_PICKS = [
-  { name: "차박 감성 조명", price: "9,900원", score: 91, note: "검색량 3주 연속 상승" },
-  { name: "휴대용 미니 선풍기", price: "12,800원", score: 86, note: "마진율 카테고리 평균 상회" },
-  { name: "접이식 캠핑 테이블", price: "22,000원", score: 74, note: "경쟁 상품 증가 추세" },
+/* 투자 리포트 만들기 스테퍼 */
+export const REPORT_STEPS = [
+  { num: 1, label: "후보등록", caption: "상품명 올리기" },
+  { num: 2, label: "1차 스크리닝", caption: "수요·경쟁도 비교" },
+  { num: 3, label: "관심상품", caption: "주력 후보 모으기" },
+  { num: 4, label: "비용투자 적합도", caption: "광고비 투자 판단" },
 ];
 
-export const SEASON_THEMES = ["물놀이 용품 기획전", "장마 대비 기획전", "DIY 아이템 기획전"];
-
-export const WISHLIST_CHANGES = [
-  { name: "캠핑 미니 랜턴 충전식", price: "4,500원", primary: "AI 점수 ▲7", primaryTone: "success", sub: "공급가 변동 없음" },
-  { name: "스카프 포인트 스카프", price: "12,500원", primary: "AI 점수 ▼3", primaryTone: "danger", sub: "공급가 -120원" },
-  { name: "프리미엄 도넛방석", price: "23,000원", primary: "재입고", primaryTone: "success", sub: "품절 3일 만에 해제" },
-];
-
-export const NEW_PRODUCTS = [
-  { name: "플리츠바지 여자여름바지 플리츠주름바지 여자안...", price: "4,500원" },
-  { name: "스카프 포인트스카프 사각스카프 여성스카프", price: "12,500원" },
-  { name: "자전거우비 고급우의 바이크우비 골프비옷", price: "3,600원" },
+/* 마진 계산기 판매 채널 (수수료) */
+export const CHANNELS = [
+  { key: "smartstore", label: "스마트스토어", fee: 0.058 },
+  { key: "coupang", label: "쿠팡", fee: 0.108 },
+  { key: "ably", label: "에이블리", fee: 0.15 },
 ];
 
 export const NOTIFICATIONS = [
@@ -90,9 +82,4 @@ export const NOTIFICATIONS = [
   { type: "검색량 급상승", tone: "warning", message: "'차박 조명' 검색량이 전주 대비 62% 늘었어요", time: "어제", read: true },
   { type: "시스템", tone: "warning", message: "이번 달 무료 리포트를 모두 사용했어요", time: "2일 전", read: true },
   { type: "공지", tone: "warning", message: "8월 15일 새벽 서버 점검이 있었어요", time: "3일 전", read: true },
-];
-
-export const CHANGE_FILTER_OPTIONS = [
-  "공급가 상승", "공급가 하락", "품절 임박", "품절",
-  "재입고", "출고일 변경", "검색량 급상승", "AI 점수 상승", "AI 점수 하락",
 ];

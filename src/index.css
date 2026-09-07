@@ -1,9 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  /* Chozy 디자인 토큰 — Figma 확정값으로 교체 예정 */
-  --color-primary: #f0766b;
-  --color-primary-light: #fdeeec;
+  /* Chozy 디자인 토큰 — Figma 홈 프레임 기준 */
+  --color-primary: #c21a52;
+  --color-primary-dark: #8e1b3f;
+  --color-primary-light: #fdebee;
+  --color-rise: #e5304c;
+  --color-rise-bg: #fdebee;
+  --color-fall: #3e7bfa;
+  --color-fall-bg: #eaf1fe;
+  --color-page: #f4f4f6;
   --font-sans: "Pretendard", "Pretendard Variable", -apple-system, BlinkMacSystemFont,
     system-ui, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
 }

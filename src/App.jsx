@@ -8,13 +8,13 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("home");
 
   return (
-    <div className="min-h-screen bg-stone-100 flex justify-center">
-      <div className="w-full max-w-md bg-stone-100 min-h-screen relative">
+    <div className="min-h-screen bg-page flex justify-center">
+      <div className="w-full max-w-md bg-page min-h-screen relative">
         {activeTab === "home" ? (
-          <HomeScreen goSearch={() => setActiveTab("search")} goWishlist={() => setActiveTab("wishlist")} />
+          <HomeScreen goSearch={() => setActiveTab("search")} />
         ) : (
           <div className="flex items-center justify-center h-screen">
-            <p className="text-sm text-stone-400">{PLACEHOLDER_LABEL[activeTab]} 화면 준비 중</p>
+            <p className="text-sm text-gray-400">{PLACEHOLDER_LABEL[activeTab]} 화면 준비 중</p>
           </div>
         )}
         <BottomNav active={activeTab} onChange={setActiveTab} />
