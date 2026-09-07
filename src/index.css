@@ -3,7 +3,7 @@
 @theme {
   /* Chozy 디자인 토큰 — Figma 홈 프레임 기준 */
   --color-primary: #c21a52;
-  --color-primary-dark: #8e1b3f;
+  --color-primary-dark: #800025; /* 에셋(home.svg, alert.svg 도트) 기준 */
   --color-primary-light: #fdebee;
   --color-rise: #e5304c;
   --color-rise-bg: #fdebee;

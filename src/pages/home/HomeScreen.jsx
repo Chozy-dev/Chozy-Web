@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Bell } from "lucide-react";
+import logo from "../../assets/home/logo.svg";
+import alertIcon from "../../assets/home/alert.svg";
 import ReportBanner from "./ReportBanner";
 import ReportStepper from "./ReportStepper";
 import MarginCalculator from "./MarginCalculator";
@@ -14,16 +15,15 @@ export default function HomeScreen({ goSearch }) {
       <div className="pb-24">
         {/* 헤더 */}
         <header className="flex items-center justify-between px-4 pt-3 pb-2.5">
-          <h1 className="text-[22px] font-black text-primary tracking-tight">
-            Ch<span className="text-primary-dark">o</span>zy
+          <h1>
+            <img src={logo} alt="Chozy" className="h-7 w-auto" />
           </h1>
           <div className="flex items-center gap-2.5">
             <button className="text-xs font-medium text-gray-800 bg-white border border-gray-200 rounded-full px-3.5 py-1.5">
               로그인
             </button>
-            <button onClick={() => setShowNotifications(true)} className="relative">
-              <Bell size={20} className="text-gray-800" />
-              <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-rise" />
+            <button onClick={() => setShowNotifications(true)}>
+              <img src={alertIcon} alt="알림" className="w-6 h-6" />
             </button>
           </div>
         </header>
