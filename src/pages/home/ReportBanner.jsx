@@ -20,7 +20,7 @@ const TITLES = {
 export default function ReportBanner({ variant = "used", onSubscribe }) {
   return (
     <section className="mx-5 mb-3">
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#c9285b] to-primary-dark p-5 text-white">
+      <div className="relative overflow-hidden rounded-[18px] bg-[linear-gradient(90deg,#ff4c80_0%,#861b3a_100%)] p-5 text-white">
         <p className="text-[17px] font-bold leading-snug mb-1">{TITLES[variant]}</p>
         <p className="text-xs text-white/70 mb-4">매달 1개의 무료 리포트를 받을 수 있어요</p>
         <button onClick={onSubscribe} className="text-xs font-semibold">
