@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ClipboardCheck } from "lucide-react";
+import factCheckIcon from "../../assets/home/fact-check.svg";
 import NumberInput from "../../components/common/NumberInput";
 import Select from "../../components/common/Select";
 import Button from "../../components/common/Button";
@@ -60,7 +60,7 @@ export default function MarginCalculator({ onVerify }) {
 
       <div className="bg-primary-light/60 rounded-xl p-3.5 mb-4">
         <div className="flex items-center gap-1.5 mb-1.5">
-          <ClipboardCheck size={14} className="text-primary" />
+          <img src={factCheckIcon} alt="" className="w-[15px] h-3.5" />
           <p className="text-xs font-bold text-gray-800">도매가를 넣으면 마진율별 판매가가 바로 나와요</p>
         </div>
         <p className="text-[11px] text-gray-500 leading-relaxed">
