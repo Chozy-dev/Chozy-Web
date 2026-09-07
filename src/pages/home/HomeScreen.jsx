@@ -19,7 +19,7 @@ export default function HomeScreen({ goSearch }) {
             <img src={logo} alt="Chozy" className="h-7 w-auto" />
           </h1>
           <div className="flex items-center gap-2.5">
-            <button className="text-xs font-medium text-gray-800 bg-white border border-gray-200 rounded-full px-3.5 py-1.5">
+            <button className="inline-flex justify-center items-center px-2.5 py-1.5 bg-white rounded-full shadow-[0px_4px_4px_0px_rgba(0,0,0,0.04)] text-sm font-semibold text-burgundy">
               로그인
             </button>
             <button onClick={() => setShowNotifications(true)}>
