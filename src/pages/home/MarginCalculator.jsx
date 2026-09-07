@@ -31,7 +31,7 @@ export default function MarginCalculator({ onVerify }) {
     salePriceNum > 0 ? Math.round(((salePriceNum - wholesaleNum - salePriceNum * channel.fee) / salePriceNum) * 1000) / 10 : null;
 
   return (
-    <section className="bg-white rounded-2xl mx-3 mb-2.5 p-4">
+    <section className="bg-white rounded-2xl mx-5 mb-3 p-5">
       <p className="text-[15px] font-bold text-gray-900 mb-4">간단 마진 계산기</p>
 
       <div className="grid grid-cols-2 gap-2.5 mb-2.5">
@@ -58,7 +58,7 @@ export default function MarginCalculator({ onVerify }) {
         </div>
       )}
 
-      <div className="bg-primary-light/60 rounded-xl p-3.5 mb-4">
+      <div className="bg-primary-light/60 rounded-xl p-4 mb-5">
         <div className="flex items-center gap-1.5 mb-1.5">
           <img src={factCheckIcon} alt="" className="w-[15px] h-3.5" />
           <p className="text-xs font-bold text-gray-800">도매가를 넣으면 마진율별 판매가가 바로 나와요</p>

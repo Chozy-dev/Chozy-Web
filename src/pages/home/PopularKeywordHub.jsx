@@ -41,7 +41,7 @@ export default function PopularKeywordHub({ goSearch }) {
   const productData = ALL_PRODUCT_DATA.slice(0, visibleCount);
 
   return (
-    <section className="bg-white rounded-2xl mx-3 mb-2.5 p-4">
+    <section className="bg-white rounded-2xl mx-5 mb-3 p-5">
       <p className="text-[15px] font-bold text-gray-900 mb-3.5">인기 키워드</p>
 
       <div className="grid grid-cols-2 gap-2.5 mb-3">

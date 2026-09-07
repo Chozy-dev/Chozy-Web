@@ -5,7 +5,7 @@ import { REPORT_STEPS } from "../../data/home";
 
 export default function ReportStepper({ activeStep = 1 }) {
   return (
-    <section className="bg-white rounded-2xl mx-3 mb-2.5 p-4">
+    <section className="bg-white rounded-2xl mx-5 mb-3 p-5">
       <p className="text-[15px] font-bold text-gray-900 mb-5">투자 리포트 만들기</p>
       <div className="flex items-start">
         {REPORT_STEPS.map((step, i) => {

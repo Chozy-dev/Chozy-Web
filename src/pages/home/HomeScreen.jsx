@@ -14,7 +14,7 @@ export default function HomeScreen({ goSearch }) {
     <>
       <div className="pb-24">
         {/* 헤더 */}
-        <header className="flex items-center justify-between px-4 pt-3 pb-2.5">
+        <header className="flex items-center justify-between px-5 pt-3 pb-2.5">
           <h1>
             <img src={logo} alt="Chozy" className="h-7 w-auto" />
           </h1>
