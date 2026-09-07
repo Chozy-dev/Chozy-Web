@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Bell } from "lucide-react";
+import ReportBanner from "./ReportBanner";
 import ReportStepper from "./ReportStepper";
 import MarginCalculator from "./MarginCalculator";
 import PopularKeywordHub from "./PopularKeywordHub";
@@ -28,20 +29,7 @@ export default function HomeScreen({ goSearch }) {
         </header>
 
         {/* 무료 리포트 배너 */}
-        <section className="mx-3 mb-2.5">
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#c9285b] to-primary-dark p-4.5 text-white">
-            <p className="text-[17px] font-bold leading-snug mb-1">
-              이번 달
-              <br />
-              무료 리포트 1/1 사용
-            </p>
-            <p className="text-xs text-white/70 mb-4">매달 1개의 무료 리포트를 받을 수 있어요</p>
-            <button className="text-xs font-semibold">구독하러 가기 ›</button>
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-5xl -rotate-12" aria-hidden>
-              📢
-            </span>
-          </div>
-        </section>
+        <ReportBanner variant="used" />
 
         {/* 투자 리포트 만들기 스테퍼 */}
         <ReportStepper activeStep={1} />

@@ -37,14 +37,14 @@ export function buildKeywordData(count) {
 }
 
 const PRODUCT_POOL = [
-  { name: "고퀄리티 저소음 BLDC 핸디형 휴대용...", base: 6850 },
-  { name: "18컬러 3단 자동우산 UV 자외선...", base: 2900 },
-  { name: "KC인증 1백(2매입) 붙이는 아이스 패치", base: 170 },
-  { name: "2500매송 남성 실리스 반팔 렐린...", base: 1870 },
-  { name: "보냉가방 손잡이보온 보냉백", base: 5500 },
-  { name: "밴프 슬립로퍼 목 어깨 안마기", base: 4600 },
-  { name: "차량용 공기청정기 미니", base: 12900 },
-  { name: "캠핑 접이식 테이블", base: 22000 },
+  { name: "고퀄리티 저소음 BLDC 핸디형 휴대용 선풍기", brand: "디아코트레이닝", base: 6850 },
+  { name: "18컬러 3단 자동우산 UV 자외선 차단", brand: "우산공방", base: 2900 },
+  { name: "KC인증 1백(2매입) 붙이는 아이스 패치", brand: "쿨링랩", base: 170 },
+  { name: "2500매송 남성 실리스 반팔 렐린 티셔츠", brand: "베이직웨어", base: 1870 },
+  { name: "보냉가방 손잡이보온 보냉백", brand: "피크닉하우스", base: 5500 },
+  { name: "밴프 슬립로퍼 목 어깨 안마기", brand: "릴렉스온", base: 4600 },
+  { name: "차량용 공기청정기 미니", brand: "카클린", base: 12900 },
+  { name: "캠핑 접이식 테이블", brand: "캠프메이트", base: 22000 },
 ];
 
 export function buildProductData(count) {
@@ -54,6 +54,7 @@ export function buildProductData(count) {
     return {
       rank,
       name: item.name,
+      brand: item.brand,
       price: `${(item.base + rank * 37).toLocaleString()}원`,
       aiScore: 40 + ((rank * 17) % 55),
     };

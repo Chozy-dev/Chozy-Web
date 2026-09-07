@@ -1,11 +1,19 @@
 import { useState } from "react";
 import { ClipboardCheck } from "lucide-react";
+import NumberInput from "../../components/common/NumberInput";
+import Select from "../../components/common/Select";
+import Button from "../../components/common/Button";
 import { CHANNELS } from "../../data/home";
 
 /* 간단 마진 계산기 — 도매가 입력 시 마진율별 판매가 즉시 계산
    (배송비·광고비·부가세 미반영 단순 계산) */
 
 const MARGIN_RATES = [0.2, 0.3, 0.4];
+
+const CHANNEL_OPTIONS = CHANNELS.map((c) => ({
+  value: c.key,
+  label: `${c.label} (${(c.fee * 100).toFixed(1)}%)`,
+}));
 
 export default function MarginCalculator({ onVerify }) {
   const [wholesale, setWholesale] = useState("");
@@ -27,39 +35,11 @@ export default function MarginCalculator({ onVerify }) {
       <p className="text-[15px] font-bold text-gray-900 mb-4">간단 마진 계산기</p>
 
       <div className="grid grid-cols-2 gap-2.5 mb-2.5">
-        <div>
-          <label className="block text-xs text-gray-500 mb-1.5">도매가</label>
-          <input
-            type="number"
-            value={wholesale}
-            onChange={(e) => setWholesale(e.target.value)}
-            placeholder="8000"
-            className="w-full text-sm border border-gray-200 rounded-xl px-3.5 py-3 outline-none placeholder:text-gray-300 focus:border-primary"
-          />
-        </div>
-        <div>
-          <label className="block text-xs text-gray-500 mb-1.5">판매가 (선택)</label>
-          <input
-            type="number"
-            value={salePrice}
-            onChange={(e) => setSalePrice(e.target.value)}
-            placeholder="8000"
-            className="w-full text-sm border border-gray-200 rounded-xl px-3.5 py-3 outline-none placeholder:text-gray-300 focus:border-primary"
-          />
-        </div>
+        <NumberInput label="도매가" value={wholesale} onChange={setWholesale} placeholder="8000" />
+        <NumberInput label="판매가 (선택)" value={salePrice} onChange={setSalePrice} placeholder="8000" />
       </div>
 
-      <select
-        value={channelKey}
-        onChange={(e) => setChannelKey(e.target.value)}
-        className="w-full text-sm border border-gray-200 rounded-xl px-3.5 py-3 bg-white text-gray-800 mb-3"
-      >
-        {CHANNELS.map((c) => (
-          <option key={c.key} value={c.key}>
-            {c.label} ({(c.fee * 100).toFixed(1)}%)
-          </option>
-        ))}
-      </select>
+      <Select value={channelKey} options={CHANNEL_OPTIONS} onChange={setChannelKey} className="mb-3" />
 
       {/* 도매가 입력 시 마진율별 판매가 */}
       {wholesaleNum > 0 && (
@@ -89,9 +69,7 @@ export default function MarginCalculator({ onVerify }) {
         </p>
       </div>
 
-      <button onClick={onVerify} className="w-full bg-primary-dark text-white text-sm font-semibold rounded-xl py-3.5">
-        실제 데이터로 검증하기
-      </button>
+      <Button onClick={onVerify}>실제 데이터로 검증하기</Button>
     </section>
   );
 }
