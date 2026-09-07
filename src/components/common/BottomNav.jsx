@@ -35,7 +35,7 @@ export default function BottomNav({ active, onChange }) {
           return (
             <button key={key} onClick={() => onChange?.(key)} className="flex flex-col items-center gap-1 px-4 py-0.5">
               <MaskIcon src={icon} className={`w-7 h-7 ${isActive ? "text-primary-dark" : "text-gray-300"}`} />
-              <span className={`text-xs ${isActive ? "text-primary-dark font-semibold" : "text-gray-400"}`}>{label}</span>
+              <span className={`text-xs ${isActive ? "text-primary-dark font-bold" : "text-gray-400"}`}>{label}</span>
             </button>
           );
         })}
