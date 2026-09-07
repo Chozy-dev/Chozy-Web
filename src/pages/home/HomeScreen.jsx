@@ -1,17 +1,24 @@
+import { useState } from "react";
 import { Bell, Filter } from "lucide-react";
 import Card from "../../components/common/Card";
 import Badge from "../../components/common/Badge";
 import PopularKeywordHub from "./PopularKeywordHub";
+import NotificationsView from "./NotificationsView";
+import ChangeFilterModal from "./ChangeFilterModal";
 import { getSubTier } from "../../lib/score";
 import { AI_PICKS, SEASON_THEMES, WISHLIST_CHANGES, NEW_PRODUCTS } from "../../data/home";
 
-export default function HomeScreen() {
+export default function HomeScreen({ goSearch, goWishlist }) {
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+
   return (
+    <>
     <div className="px-4 pt-5 pb-24">
       {/* 헤더 */}
       <header className="flex items-center justify-between mb-1">
         <h1 className="text-lg font-bold text-stone-900">Chozy</h1>
-        <button className="relative">
+        <button onClick={() => setShowNotifications(true)} className="relative">
           <Bell size={20} className="text-stone-500" />
           <span className="absolute -top-1.5 -right-2 w-3.5 h-3.5 rounded-full bg-rose-500 text-white text-[9px] flex items-center justify-center">
             3
@@ -27,12 +34,15 @@ export default function HomeScreen() {
       </div>
 
       {/* URL 분석 진입 검색바 */}
-      <button className="w-full text-left bg-white border border-stone-200 rounded-full px-4 py-2.5 mb-6 text-sm text-stone-400">
+      <button
+        onClick={goSearch}
+        className="w-full text-left bg-white border border-stone-200 rounded-full px-4 py-2.5 mb-6 text-sm text-stone-400"
+      >
         상품 URL을 붙여넣어 분석해보세요
       </button>
 
       {/* 인기 키워드 허브 */}
-      <PopularKeywordHub />
+      <PopularKeywordHub goSearch={goSearch} />
 
       {/* 오늘의 AI 추천 상품 */}
       <section className="mb-6">
@@ -72,7 +82,7 @@ export default function HomeScreen() {
       <section className="mb-6">
         <div className="flex items-center justify-between mb-2.5">
           <p className="text-sm font-semibold text-stone-800">관심상품 변동 사항</p>
-          <button className="text-stone-400">
+          <button onClick={() => setFilterOpen(true)} className="text-stone-400">
             <Filter size={16} />
           </button>
         </div>
@@ -80,6 +90,7 @@ export default function HomeScreen() {
           {WISHLIST_CHANGES.map((w, i, arr) => (
             <button
               key={w.name}
+              onClick={goWishlist}
               className={`w-full flex items-center justify-between px-3 py-2.5 text-left ${
                 i !== arr.length - 1 ? "border-b border-stone-100" : ""
               }`}
@@ -117,6 +128,21 @@ export default function HomeScreen() {
           <p className="text-xs text-stone-400">최근 본 상품이 없어요</p>
         </Card>
       </section>
+
+      <ChangeFilterModal open={filterOpen} onClose={() => setFilterOpen(false)} />
     </div>
+
+    {/* 알림 오버레이 */}
+    {showNotifications && (
+      <div className="fixed inset-0 z-50 bg-black/40 flex justify-center" onClick={() => setShowNotifications(false)}>
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="w-full max-w-md relative m-4 bg-stone-50 rounded-2xl overflow-y-auto shadow-xl"
+        >
+          <NotificationsView onBack={() => setShowNotifications(false)} />
+        </div>
+      </div>
+    )}
+    </>
   );
 }
