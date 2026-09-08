@@ -22,7 +22,7 @@ const ICONS: Record<NotificationType, string> = {
 
 function NotificationItem({ notification }: { notification: AppNotification }) {
   return (
-    <li className="flex gap-3 px-5 py-4">
+    <li className="flex gap-3 px-5 py-3">
       <img src={ICONS[notification.type]} alt="" className="w-5 h-5 mt-0.5 flex-shrink-0" />
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5">
@@ -30,7 +30,7 @@ function NotificationItem({ notification }: { notification: AppNotification }) {
           {!notification.read && <span className="w-1.5 h-1.5 rounded-full bg-rise flex-shrink-0" />}
           <span className="ml-auto text-xs text-graytext1 flex-shrink-0">{notification.time}</span>
         </div>
-        <p className="mt-1 text-base font-semibold text-black2 leading-[18px]">{notification.message}</p>
+        <p className="mt-2 text-base font-semibold text-black2">{notification.message}</p>
       </div>
     </li>
   );
@@ -65,7 +65,7 @@ export default function NotificationsView({ onBack }: NotificationsViewProps) {
             모두 읽음 처리
           </button>
         </div>
-        <h1 className="px-5 mt-1 mb-0.5 text-xl font-semibold text-black1">알림</h1>
+        <h1 className="px-5 mt-1 mb-1.5 text-xl font-semibold text-black1">알림</h1>
       </header>
 
       {notifications.length === 0 ? (
