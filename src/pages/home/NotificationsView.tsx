@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronLeft } from "lucide-react";
+import backArrow from "../../assets/common/back-arrow.svg";
 import scoreIcon from "../../assets/notification/ai-structure.svg";
 import supplyIcon from "../../assets/notification/supply-price-fluctuation.svg";
 import restockIcon from "../../assets/notification/restock.svg";
@@ -49,20 +49,23 @@ export default function NotificationsView({ onBack }: NotificationsViewProps) {
 
   return (
     <div className="min-h-full flex flex-col bg-white">
-      <header className="px-5 pt-4">
-        <div className="flex items-center justify-between">
-          <button onClick={onBack} aria-label="뒤로">
-            <ChevronLeft size={24} className="text-black1" />
-          </button>
+      <header>
+        <div className="h-12 pr-4 py-2.5 flex justify-start items-center gap-2.5">
+          <div className="flex-1 px-4 flex justify-start items-center gap-4">
+            <button onClick={onBack} aria-label="뒤로">
+              <img src={backArrow} alt="" className="w-5 h-5" />
+            </button>
+          </div>
+          {/* 누를 수 있으면 뒤로가기와 같은 검정, 아니면 회색 */}
           <button
             onClick={markAllRead}
             disabled={unread.length === 0}
-            className="text-sm text-gray1 disabled:text-gray3"
+            className={`text-xs font-semibold ${unread.length > 0 ? "text-black1" : "text-graytext1"}`}
           >
             모두 읽음 처리
           </button>
         </div>
-        <h1 className="mt-3 mb-2 text-xl font-bold text-black1">알림</h1>
+        <h1 className="px-5 mt-3 mb-2 text-xl font-bold text-black1">알림</h1>
       </header>
 
       {notifications.length === 0 ? (
