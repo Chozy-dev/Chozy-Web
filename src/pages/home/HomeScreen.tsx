@@ -7,7 +7,11 @@ import MarginCalculator from "./MarginCalculator";
 import PopularKeywordHub from "./PopularKeywordHub";
 import NotificationsView from "./NotificationsView";
 
-export default function HomeScreen({ goSearch }) {
+interface HomeScreenProps {
+  goSearch?: () => void;
+}
+
+export default function HomeScreen({ goSearch }: HomeScreenProps) {
   const [showNotifications, setShowNotifications] = useState(false);
 
   return (

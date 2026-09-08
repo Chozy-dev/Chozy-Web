@@ -1,6 +1,10 @@
+import type { ReactNode } from "react";
+
 /* 무료 리포트 배너 — variant: "used"(1/1 사용) | "available"(1회 사용 가능) */
 
-const TITLES = {
+export type ReportBannerVariant = "used" | "available";
+
+const TITLES: Record<ReportBannerVariant, ReactNode> = {
   used: (
     <>
       이번 달
@@ -17,7 +21,12 @@ const TITLES = {
   ),
 };
 
-export default function ReportBanner({ variant = "used", onSubscribe }) {
+interface ReportBannerProps {
+  variant?: ReportBannerVariant;
+  onSubscribe?: () => void;
+}
+
+export default function ReportBanner({ variant = "used", onSubscribe }: ReportBannerProps) {
   return (
     <section className="mx-5 mb-3">
       <div className="relative overflow-hidden rounded-[18px] bg-[linear-gradient(90deg,#ff4c80_0%,#861b3a_100%)] p-5 text-white">

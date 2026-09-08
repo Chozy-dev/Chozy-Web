@@ -1,10 +1,29 @@
+import type { InputHTMLAttributes } from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
 
 /* 숫자 입력 — 커스텀 스피너(▲▼), 포커스 시 프라이머리 보더 */
 
-export default function NumberInput({ label, value, onChange, step = 100, className = "", ...props }) {
+interface NumberInputProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "value" | "onChange" | "step" | "className"> {
+  label?: string;
+  /** 빈 문자열을 허용하기 위해 문자열로 다룹니다 */
+  value: string;
+  onChange: (value: string) => void;
+  /** 스피너 클릭 시 증감 폭 */
+  step?: number;
+  className?: string;
+}
+
+export default function NumberInput({
+  label,
+  value,
+  onChange,
+  step = 100,
+  className = "",
+  ...props
+}: NumberInputProps) {
   const num = Number(value) || 0;
-  const setNum = (n) => onChange(String(Math.max(n, 0)));
+  const setNum = (n: number) => onChange(String(Math.max(n, 0)));
 
   return (
     <div className={className}>

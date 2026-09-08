@@ -3,7 +3,11 @@ import { REPORT_STEPS } from "../../data/home";
 
 /* 투자 리포트 만들기 — 4단계 스테퍼 (1단계 활성) */
 
-export default function ReportStepper({ activeStep = 1 }) {
+interface ReportStepperProps {
+  activeStep?: number;
+}
+
+export default function ReportStepper({ activeStep = 1 }: ReportStepperProps) {
   return (
     <section className="bg-white rounded-2xl mx-5 mb-3 p-5">
       <p className="text-[15px] font-bold text-gray-900 mb-5">투자 리포트 만들기</p>

@@ -1,6 +1,13 @@
+import type { InputHTMLAttributes } from "react";
+
 /* 텍스트 입력 — 포커스 시 프라이머리 보더 */
 
-export default function TextInput({ label, className = "", ...props }) {
+interface TextInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "className"> {
+  label?: string;
+  className?: string;
+}
+
+export default function TextInput({ label, className = "", ...props }: TextInputProps) {
   return (
     <div className={className}>
       {label && <label className="block text-xs text-gray-500 mb-1.5">{label}</label>}

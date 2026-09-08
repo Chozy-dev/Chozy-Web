@@ -1,9 +1,12 @@
+import type { CSSProperties } from "react";
 import homeIcon from "../../assets/bottom-nav/home.svg";
 import searchIcon from "../../assets/bottom-nav/search.svg";
 import listIcon from "../../assets/bottom-nav/list.svg";
 import userIcon from "../../assets/bottom-nav/user.svg";
 
-const ITEMS = [
+export type TabKey = "home" | "search" | "wishlist" | "mypage";
+
+const ITEMS: { key: TabKey; label: string; icon: string }[] = [
   { key: "home", label: "홈", icon: homeIcon },
   { key: "search", label: "검색", icon: searchIcon },
   { key: "wishlist", label: "관심", icon: listIcon },
@@ -11,8 +14,8 @@ const ITEMS = [
 ];
 
 /* SVG를 mask로 깔고 currentColor로 칠해 활성/비활성 색을 한 파일로 처리 */
-function MaskIcon({ src, className = "" }) {
-  const style = {
+function MaskIcon({ src, className = "" }: { src: string; className?: string }) {
+  const style: CSSProperties = {
     WebkitMaskImage: `url("${src}")`,
     maskImage: `url("${src}")`,
     WebkitMaskSize: "contain",
@@ -26,7 +29,12 @@ function MaskIcon({ src, className = "" }) {
   return <span aria-hidden className={`inline-block ${className}`} style={style} />;
 }
 
-export default function BottomNav({ active, onChange }) {
+interface BottomNavProps {
+  active: TabKey;
+  onChange?: (key: TabKey) => void;
+}
+
+export default function BottomNav({ active, onChange }: BottomNavProps) {
   return (
     <nav className="fixed bottom-0 left-0 right-0 mx-auto max-w-md bg-white border-t border-gray-100">
       <div className="flex justify-around pt-2 pb-3">
