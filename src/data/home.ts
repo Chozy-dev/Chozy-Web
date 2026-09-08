@@ -1,8 +1,6 @@
 /* 홈 화면 목데이터 — 백엔드 연동 시 API 응답으로 대체
    여기 정의된 타입이 곧 API 응답 계약이 되므로, 스펙 합의 시 이 파일을 기준으로 삼습니다. */
 
-import type { Tone } from "../lib/score";
-
 /* ---------- 카테고리 ---------- */
 
 export const CATEGORY_TREE = {
@@ -125,19 +123,25 @@ export const CHANNELS: Channel[] = [
 
 /* ---------- 알림 ---------- */
 
-export interface Notification {
-  type: string;
-  tone: Tone;
+/** 알림 종류 — 아이콘 매핑 키 (assets/notification) */
+export type NotificationType = "score" | "supply" | "restock" | "search" | "system" | "notice";
+
+export interface AppNotification {
+  id: number;
+  type: NotificationType;
+  /** 화면에 표시할 종류 라벨 */
+  label: string;
   message: string;
+  /** 표시용 상대 시간 문자열 (예: "지금", "1시간 전") */
   time: string;
   read: boolean;
 }
 
-export const NOTIFICATIONS: Notification[] = [
-  { type: "AI 점수 변화", tone: "success", message: "캠핑 미니 랜턴 충전식의 AI 점수가 67 → 74로 올랐어요", time: "10분 전", read: false },
-  { type: "공급가 변동", tone: "danger", message: "스카프 포인트 스카프 공급가가 120원 내렸어요", time: "1시간 전", read: false },
-  { type: "재입고", tone: "success", message: "프리미엄 도넛방석이 품절 3일 만에 재입고됐어요", time: "3시간 전", read: false },
-  { type: "검색량 급상승", tone: "warning", message: "'차박 조명' 검색량이 전주 대비 62% 늘었어요", time: "어제", read: true },
-  { type: "시스템", tone: "warning", message: "이번 달 무료 리포트를 모두 사용했어요", time: "2일 전", read: true },
-  { type: "공지", tone: "warning", message: "8월 15일 새벽 서버 점검이 있었어요", time: "3일 전", read: true },
+export const NOTIFICATIONS: AppNotification[] = [
+  { id: 1, type: "score", label: "AI 점수 변화", message: "캠핑 미니 랜턴 충전식의 AI 점수가 67 → 74로 올랐어요.", time: "지금", read: false },
+  { id: 2, type: "supply", label: "공급가 변동", message: "스카프 포인트 스카프 공급가가 120원 내렸어요.", time: "1시간 전", read: false },
+  { id: 3, type: "restock", label: "재입고", message: "프리미엄 도넛방석이 품절 3일 만에 재입고됐어요.", time: "3시간 전", read: false },
+  { id: 4, type: "search", label: "검색량 급상승", message: "'차박 조명' 검색량이 전주 대비 62% 늘었어요.", time: "어제", read: true },
+  { id: 5, type: "system", label: "시스템", message: "이번 달 무료 리포트를 모두 사용했어요.", time: "2일 전", read: true },
+  { id: 6, type: "notice", label: "공지", message: "8월 15일 새벽 서버 점검이 있었어요.", time: "3일 전", read: true },
 ];
