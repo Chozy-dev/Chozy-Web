@@ -22,15 +22,15 @@ const ICONS: Record<NotificationType, string> = {
 
 function NotificationItem({ notification }: { notification: AppNotification }) {
   return (
-    <li className="flex gap-2 px-5 py-3">
-      <img src={ICONS[notification.type]} alt="" className="w-[22px] h-[22px] flex-shrink-0" />
+    <li className="flex gap-3 px-5 py-4">
+      <img src={ICONS[notification.type]} alt="" className="w-5 h-5 mt-0.5 flex-shrink-0" />
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5">
-          <span className="text-[13px] text-gray1">{notification.label}</span>
+          <span className="text-sm font-medium text-graytext1">{notification.label}</span>
           {!notification.read && <span className="w-1.5 h-1.5 rounded-full bg-rise flex-shrink-0" />}
-          <span className="ml-auto text-xs text-gray1 flex-shrink-0">{notification.time}</span>
+          <span className="ml-auto text-xs text-graytext1 flex-shrink-0">{notification.time}</span>
         </div>
-        <p className="mt-1 text-sm text-black1 leading-snug">{notification.message}</p>
+        <p className="mt-1 text-base font-semibold text-black2 leading-[18px]">{notification.message}</p>
       </div>
     </li>
   );
@@ -65,7 +65,7 @@ export default function NotificationsView({ onBack }: NotificationsViewProps) {
             모두 읽음 처리
           </button>
         </div>
-        <h1 className="px-5 mt-3 mb-2 text-xl font-bold text-black1">알림</h1>
+        <h1 className="px-5 mt-1 mb-0.5 text-xl font-semibold text-black1">알림</h1>
       </header>
 
       {notifications.length === 0 ? (
@@ -78,12 +78,12 @@ export default function NotificationsView({ onBack }: NotificationsViewProps) {
             <NotificationItem key={n.id} notification={n} />
           ))}
 
-          {/* 읽지 않은 알림이 있을 때만 이전 알림과 구분 */}
+          {/* 읽지 않은 알림이 있을 때만 이전 알림과 구분 — 선은 좌우 여백 없이 화면 끝까지 */}
           {unread.length > 0 && read.length > 0 && (
-            <li className="flex items-center gap-3 px-5 py-4" aria-hidden>
-              <span className="flex-1 h-px bg-line" />
-              <span className="text-xs text-gray1">이전 알림</span>
-              <span className="flex-1 h-px bg-line" />
+            <li className="flex items-center gap-2.5 py-4" aria-hidden>
+              <span className="flex-1 h-px bg-divider" />
+              <span className="text-sm font-medium text-graytext1">이전 알림</span>
+              <span className="flex-1 h-px bg-divider" />
             </li>
           )}
 

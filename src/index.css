@@ -21,6 +21,7 @@
 
   /* 이름 미확인 — 스펙에 값만 등장한 색 */
   --color-line: #ededed; /* 셀렉트 보더·드롭다운 선택 배경 */
+  --color-divider: #dfdfdf; /* 목록 구분선 */
   --color-gray2: #a3a3a3; /* '신규' 텍스트 */
   --color-gray3: #c6c6c6; /* '-' 텍스트 */
   --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont,
