@@ -58,10 +58,15 @@ export default function Select<T extends string>({
           open ? "outline-primary" : "outline-line"
         }`}
       >
-        <span className={`pl-1 truncate text-sm font-medium ${disabled ? "text-gray-300" : "text-black1"}`}>
+        <span
+          className={`pl-1 truncate text-sm font-medium ${disabled ? "text-gray-300" : "text-black1"}`}
+        >
           {selected ? selected.label : placeholder}
         </span>
-        <ChevronDown size={16} className={`flex-shrink-0 ${disabled ? "text-gray-300" : "text-black2"}`} />
+        <ChevronDown
+          size={16}
+          className={`flex-shrink-0 ${disabled ? "text-gray-300" : "text-black2"}`}
+        />
       </button>
 
       {open &&
@@ -103,7 +108,15 @@ export default function Select<T extends string>({
                     ) : (
                       <span className="w-3.5 flex-shrink-0" />
                     )}
-                    <span className={isSelected ? "font-semibold text-gray-900" : "text-gray-400"}>{o.label}</span>
+                    <span
+                      className={
+                        isSelected
+                          ? "font-semibold text-gray-900"
+                          : "text-gray-400"
+                      }
+                    >
+                      {o.label}
+                    </span>
                   </button>
                 </li>
               );

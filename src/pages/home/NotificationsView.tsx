@@ -1,23 +1,29 @@
 import { useState } from "react";
-import { ChevronLeft, TrendingUp, RefreshCw, PackageCheck, Search, Bell, type LucideIcon } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
+import scoreIcon from "../../assets/notification/ai-structure.svg";
+import supplyIcon from "../../assets/notification/supply-price-fluctuation.svg";
+import restockIcon from "../../assets/notification/restock.svg";
+import searchIcon from "../../assets/notification/search-volume-surges.svg";
+import systemIcon from "../../assets/notification/system.svg";
+import noticeIcon from "../../assets/notification/announcement.svg";
 import { NOTIFICATIONS, type AppNotification, type NotificationType } from "../../data/home";
 
-/* 알림 — 읽지 않은 알림 / '이전 알림' 구분, 전체 읽음 시 구분 없이 한 목록, 비어 있으면 안내 문구
-   아이콘은 Figma 에셋 전달 전까지 lucide로 근사 (타입별 맵이라 교체 지점이 한 곳) */
+/* 알림 — 읽지 않은 알림 / '이전 알림' 구분, 전체 읽음 시 구분 없이 한 목록, 비어 있으면 안내 문구 */
 
-const ICONS: Record<NotificationType, { Icon: LucideIcon; className: string }> = {
-  score: { Icon: TrendingUp, className: "text-rise" },
-  supply: { Icon: RefreshCw, className: "text-amber-400" },
-  restock: { Icon: PackageCheck, className: "text-emerald-500" },
-  search: { Icon: Search, className: "text-fall" },
-  system: { Icon: Bell, className: "text-gray1" },
+/** 원형 배경까지 포함된 22px 아이콘이라 색은 에셋이 직접 가짐 */
+const ICONS: Record<NotificationType, string> = {
+  score: scoreIcon,
+  supply: supplyIcon,
+  restock: restockIcon,
+  search: searchIcon,
+  system: systemIcon,
+  notice: noticeIcon,
 };
 
 function NotificationItem({ notification }: { notification: AppNotification }) {
-  const { Icon, className } = ICONS[notification.type];
   return (
     <li className="flex gap-2 px-5 py-3">
-      <Icon size={18} strokeWidth={2} className={`mt-0.5 flex-shrink-0 ${className}`} />
+      <img src={ICONS[notification.type]} alt="" className="w-[22px] h-[22px] flex-shrink-0" />
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5">
           <span className="text-[13px] text-gray1">{notification.label}</span>
