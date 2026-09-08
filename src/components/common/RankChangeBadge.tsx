@@ -25,7 +25,7 @@ export default function RankChangeBadge({ change, steps }: RankChangeBadgeProps)
     const up = change === "up";
     return (
       <span
-        className={`pl-1 pr-1.5 py-1 rounded-[100px] inline-flex justify-center items-center gap-0.5 text-xs font-medium ${
+        className={`flex-shrink-0 pl-1 pr-1.5 py-1 rounded-[100px] inline-flex justify-center items-center gap-0.5 text-xs font-medium ${
           up ? "bg-rise-bg text-rise" : "bg-fall-bg text-fall"
         }`}
       >
@@ -34,6 +34,16 @@ export default function RankChangeBadge({ change, steps }: RankChangeBadgeProps)
       </span>
     );
   }
-  if (change === "new") return <span className="text-xs text-gray-400">신규</span>;
-  return <span className="text-xs text-gray-300">-</span>;
+  if (change === "new") {
+    return (
+      <span className="flex-shrink-0 w-14 h-6 inline-flex justify-center items-center text-center text-sm font-medium text-gray2">
+        신규
+      </span>
+    );
+  }
+  return (
+    <span className="flex-shrink-0 w-14 h-6 inline-flex justify-center items-center text-center text-base font-normal text-gray3">
+      -
+    </span>
+  );
 }
