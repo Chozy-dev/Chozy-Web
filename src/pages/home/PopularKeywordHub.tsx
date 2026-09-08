@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Select, { type SelectOption } from "../../components/common/Select";
 import SegmentToggle from "../../components/common/SegmentToggle";
-import PeriodTabs, { type Period } from "../../components/common/PeriodTabs";
-import RankingListItem from "../../components/common/RankingListItem";
+import PeriodTabs, { type Period } from "../../components/home/PeriodTabs";
+import RankingListItem from "../../components/home/RankingListItem";
 import ProductCard from "../../components/common/ProductCard";
 import {
   CATEGORY_NAMES,
