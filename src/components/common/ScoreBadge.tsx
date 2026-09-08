@@ -4,8 +4,8 @@ export type ScoreTone = "red" | "yellow" | "blue";
 
 const TONES: Record<ScoreTone, string> = {
   red: "bg-pink-100 text-rose-600",
-  yellow: "bg-amber-100 text-amber-600",
-  blue: "bg-blue-100 text-blue-600",
+  yellow: "bg-yellow-50 text-yellow-500",
+  blue: "bg-blue-50 text-blue-600",
 };
 
 export function scoreTone(score: number): ScoreTone {
