@@ -54,12 +54,14 @@ export default function Select<T extends string>({
         type="button"
         disabled={disabled}
         onClick={() => setOpen((v) => !v)}
-        className={`w-full flex items-center justify-between text-sm border rounded-xl px-3.5 py-3 bg-white text-left ${
-          open ? "border-primary" : "border-gray-200"
-        } ${disabled ? "text-gray-300" : "text-gray-800"}`}
+        className={`w-full p-3 bg-white rounded-[10px] outline outline-1 outline-offset-[-1px] flex justify-between items-center gap-2.5 text-left ${
+          open ? "outline-primary" : "outline-gray-200"
+        }`}
       >
-        <span className="truncate">{selected ? selected.label : placeholder}</span>
-        <ChevronDown size={16} className={`flex-shrink-0 ml-1 ${disabled ? "text-gray-300" : "text-gray-500"}`} />
+        <span className={`pl-1 truncate text-sm font-medium ${disabled ? "text-gray-300" : "text-neutral-900"}`}>
+          {selected ? selected.label : placeholder}
+        </span>
+        <ChevronDown size={16} className={`flex-shrink-0 ${disabled ? "text-gray-300" : "text-neutral-600"}`} />
       </button>
 
       {open &&
