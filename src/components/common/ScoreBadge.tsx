@@ -23,7 +23,7 @@ interface ScoreBadgeProps {
 export default function ScoreBadge({ score, tone }: ScoreBadgeProps) {
   const t = tone ?? scoreTone(score);
   return (
-    <span className={`inline-block text-[10px] font-semibold rounded-md px-1.5 py-0.5 ${TONES[t]}`}>
+    <span className={`inline-block whitespace-nowrap text-[9px] font-semibold rounded-md px-1.5 py-0.5 ${TONES[t]}`}>
       AI 추천 점수 {score}점
     </span>
   );

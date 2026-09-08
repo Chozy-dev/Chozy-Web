@@ -103,7 +103,7 @@ export default function PopularKeywordHub({ goSearch }: PopularKeywordHubProps) 
           <div className="flex mb-2">
             <SegmentToggle options={SORT_OPTIONS} value={productSort} onChange={setProductSort} />
           </div>
-          <div className="grid grid-cols-3 gap-x-2 gap-y-4">
+          <div className="grid grid-cols-3 gap-2 items-start">
             {productData.map((p, i) => (
               <ProductCard
                 key={p.rank}
