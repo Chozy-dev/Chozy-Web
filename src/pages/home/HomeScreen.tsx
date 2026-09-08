@@ -45,13 +45,10 @@ export default function HomeScreen({ goSearch }: HomeScreenProps) {
         <PopularKeywordHub goSearch={goSearch} />
       </div>
 
-      {/* 알림 오버레이 */}
+      {/* 알림 — 라우터 도입 전까지 전체 화면 오버레이로 표시 */}
       {showNotifications && (
-        <div className="fixed inset-0 z-50 bg-black/40 flex justify-center" onClick={() => setShowNotifications(false)}>
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-md relative m-4 bg-page rounded-2xl overflow-y-auto shadow-xl"
-          >
+        <div className="fixed inset-0 z-50 flex justify-center bg-black/20">
+          <div className="w-full max-w-md bg-white overflow-y-auto">
             <NotificationsView onBack={() => setShowNotifications(false)} />
           </div>
         </div>
