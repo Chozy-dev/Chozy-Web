@@ -3,9 +3,9 @@
 export type ScoreTone = "red" | "yellow" | "blue";
 
 const TONES: Record<ScoreTone, string> = {
-  red: "text-rise bg-rise-bg",
-  yellow: "text-amber-500 bg-amber-50",
-  blue: "text-fall bg-fall-bg",
+  red: "bg-pink-100 text-rose-600",
+  yellow: "bg-amber-100 text-amber-600",
+  blue: "bg-blue-100 text-blue-600",
 };
 
 export function scoreTone(score: number): ScoreTone {
@@ -23,8 +23,8 @@ interface ScoreBadgeProps {
 export default function ScoreBadge({ score, tone }: ScoreBadgeProps) {
   const t = tone ?? scoreTone(score);
   return (
-    <span className={`inline-block whitespace-nowrap text-[9px] font-semibold rounded-md px-1.5 py-0.5 ${TONES[t]}`}>
-      AI 추천 점수 {score}점
-    </span>
+    <div className={`p-1 rounded-sm inline-flex justify-start items-center gap-0.5 ${TONES[t]}`}>
+      <div className="text-[10px] font-semibold whitespace-nowrap">AI 추천 점수 {score}점</div>
+    </div>
   );
 }

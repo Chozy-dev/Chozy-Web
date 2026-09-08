@@ -22,11 +22,15 @@ export default function ProductCard({ rank, brand, name, price, score, showScore
     >
       <div className="self-stretch h-24 bg-neutral-200 rounded-tl-lg rounded-tr-lg border border-neutral-100" />
 
-      <div className="self-stretch px-1.5 flex flex-col justify-center items-start gap-1">
-        <div className="self-stretch text-left text-neutral-500 text-[10px] font-semibold line-clamp-2">{brand}</div>
-        <div className="self-stretch text-left text-neutral-900 text-xs font-normal line-clamp-2">{name}</div>
-        <div className="self-stretch text-left text-neutral-900 text-sm font-semibold">{price}</div>
-        {showScore && <ScoreBadge score={score} />}
+      <div className="self-stretch px-1 flex flex-col justify-start items-start gap-1.5">
+        <div className="self-stretch flex flex-col justify-start items-start gap-1.5">
+          <div className="self-stretch text-left text-neutral-500 text-[10px] font-semibold line-clamp-2">{brand}</div>
+          <div className="self-stretch text-left text-neutral-900 text-xs font-normal line-clamp-2">{name}</div>
+        </div>
+        <div className="self-stretch flex flex-col justify-start items-start gap-1">
+          <div className="self-stretch text-left text-neutral-900 text-sm font-semibold">{price}</div>
+          {showScore && <ScoreBadge score={score} />}
+        </div>
       </div>
 
       <div className="size-6 left-[2px] top-[2px] absolute bg-stone-900/70 rounded-tl-md rounded-br-md flex flex-col justify-center items-center gap-2.5">
