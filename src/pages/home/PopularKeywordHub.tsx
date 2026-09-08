@@ -68,13 +68,14 @@ export default function PopularKeywordHub({ goSearch }: PopularKeywordHubProps) 
       <p className="text-[15px] font-bold text-gray-900 mb-3.5">인기 키워드</p>
 
       <div className="grid grid-cols-2 gap-2.5 mb-3">
-        <Select value={category} options={CATEGORY_OPTIONS} onChange={handleCategoryChange} />
+        <Select value={category} options={CATEGORY_OPTIONS} onChange={handleCategoryChange} variant="highlight" />
         <Select
           value={subCategory}
           options={subOptions}
           onChange={setSubCategory}
           placeholder="2차 카테고리"
           disabled={category === "전체"}
+          variant="highlight"
         />
       </div>
 
