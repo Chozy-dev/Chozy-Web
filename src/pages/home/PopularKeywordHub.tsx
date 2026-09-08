@@ -53,9 +53,7 @@ export default function PopularKeywordHub({ goSearch }: PopularKeywordHubProps) 
   };
 
   const subOptions: SelectOption[] =
-    category === "전체"
-      ? []
-      : CATEGORY_TREE[category].map((s) => ({ value: s, label: s === "전체" ? "2차 전체" : s }));
+    category === "전체" ? [] : CATEGORY_TREE[category].map((s) => ({ value: s, label: s }));
 
   const visibleCount = expanded ? MAX_RANK_COUNT : DEFAULT_RANK_COUNT;
   const keywordData = ALL_KEYWORD_DATA.slice(0, visibleCount);

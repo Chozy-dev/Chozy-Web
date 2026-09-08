@@ -66,7 +66,7 @@ export default function Select<T extends string>({
 
       {open &&
         (variant === "highlight" ? (
-          <ul className="absolute z-20 left-0 right-0 mt-1.5 p-2.5 bg-white rounded-2xl shadow-[0px_4px_10px_0px_rgba(0,0,0,0.08),0px_-4px_10px_0px_rgba(0,0,0,0.08)] max-h-64 overflow-y-auto flex flex-col gap-1">
+          <ul className="absolute z-20 left-0 right-0 mt-1.5 p-2.5 bg-white rounded-2xl shadow-[0px_4px_10px_0px_rgba(0,0,0,0.08),0px_-4px_10px_0px_rgba(0,0,0,0.08)] flex flex-col gap-1">
             {options.map((o) => (
               <li key={o.value} className="self-stretch">
                 <button
