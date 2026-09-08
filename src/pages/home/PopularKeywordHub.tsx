@@ -1,37 +1,50 @@
 import { useState } from "react";
-import Select from "../../components/common/Select";
+import Select, { type SelectOption } from "../../components/common/Select";
 import SegmentToggle from "../../components/common/SegmentToggle";
-import PeriodTabs from "../../components/common/PeriodTabs";
+import PeriodTabs, { type Period } from "../../components/common/PeriodTabs";
 import RankingListItem from "../../components/common/RankingListItem";
 import ProductCard from "../../components/common/ProductCard";
 import {
+  CATEGORY_NAMES,
   CATEGORY_TREE,
   DEFAULT_RANK_COUNT,
   MAX_RANK_COUNT,
   buildKeywordData,
   buildProductData,
+  type CategoryName,
 } from "../../data/home";
 
 /* 인기 키워드 — 1·2차 카테고리 + 기간 필터, 키워드/상품 랭킹 */
 
+type RankingView = "keyword" | "product";
+
 const ALL_KEYWORD_DATA = buildKeywordData(MAX_RANK_COUNT);
 const ALL_PRODUCT_DATA = buildProductData(MAX_RANK_COUNT);
 
-const CATEGORY_OPTIONS = Object.keys(CATEGORY_TREE).map((c) => ({ value: c, label: c }));
+const CATEGORY_OPTIONS: SelectOption<CategoryName>[] = CATEGORY_NAMES.map((c) => ({ value: c, label: c }));
 
-export default function PopularKeywordHub({ goSearch }) {
-  const [category, setCategory] = useState("전체");
+const VIEW_OPTIONS: { k: RankingView; l: string }[] = [
+  { k: "keyword", l: "키워드" },
+  { k: "product", l: "상품" },
+];
+
+interface PopularKeywordHubProps {
+  goSearch?: () => void;
+}
+
+export default function PopularKeywordHub({ goSearch }: PopularKeywordHubProps) {
+  const [category, setCategory] = useState<CategoryName>("전체");
   const [subCategory, setSubCategory] = useState("전체");
-  const [period, setPeriod] = useState("daily");
-  const [view, setView] = useState("keyword");
+  const [period, setPeriod] = useState<Period>("daily");
+  const [view, setView] = useState<RankingView>("keyword");
   const [expanded, setExpanded] = useState(false);
 
-  const handleCategoryChange = (c) => {
+  const handleCategoryChange = (c: CategoryName) => {
     setCategory(c);
     setSubCategory("전체");
   };
 
-  const subOptions =
+  const subOptions: SelectOption[] =
     category === "전체"
       ? []
       : CATEGORY_TREE[category].map((s) => ({ value: s, label: s === "전체" ? "2차 전체" : s }));
@@ -57,14 +70,7 @@ export default function PopularKeywordHub({ goSearch }) {
 
       <div className="flex items-center justify-between mb-1">
         <PeriodTabs value={period} onChange={setPeriod} />
-        <SegmentToggle
-          options={[
-            { k: "keyword", l: "키워드" },
-            { k: "product", l: "상품" },
-          ]}
-          value={view}
-          onChange={setView}
-        />
+        <SegmentToggle options={VIEW_OPTIONS} value={view} onChange={setView} />
       </div>
 
       {view === "keyword" ? (

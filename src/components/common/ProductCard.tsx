@@ -2,7 +2,18 @@ import ScoreBadge from "./ScoreBadge";
 
 /* 상품 카드 — 썸네일(순위 배지) + 브랜드 + 상품명 2줄 + 가격 + AI 점수(선택) */
 
-export default function ProductCard({ rank, brand, name, price, score, showScore = false, onClick }) {
+interface ProductCardProps {
+  rank: number;
+  brand: string;
+  name: string;
+  /** 통화 기호까지 포함된 표시용 문자열 */
+  price: string;
+  score: number;
+  showScore?: boolean;
+  onClick?: () => void;
+}
+
+export default function ProductCard({ rank, brand, name, price, score, showScore = false, onClick }: ProductCardProps) {
   return (
     <button onClick={onClick} className="w-full text-left">
       <div className="relative w-full h-24 rounded-lg bg-gray-100 mb-1.5">

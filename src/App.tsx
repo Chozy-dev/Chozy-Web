@@ -1,11 +1,15 @@
 import { useState } from "react";
 import HomeScreen from "./pages/home/HomeScreen";
-import BottomNav from "./components/common/BottomNav";
+import BottomNav, { type TabKey } from "./components/common/BottomNav";
 
-const PLACEHOLDER_LABEL = { search: "검색", wishlist: "관심상품", mypage: "마이페이지" };
+const PLACEHOLDER_LABEL: Record<Exclude<TabKey, "home">, string> = {
+  search: "검색",
+  wishlist: "관심상품",
+  mypage: "마이페이지",
+};
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState("home");
+  const [activeTab, setActiveTab] = useState<TabKey>("home");
 
   return (
     <div className="min-h-screen bg-page flex justify-center">

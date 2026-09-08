@@ -1,34 +1,40 @@
 import { useState } from "react";
 import factCheckIcon from "../../assets/home/fact-check.svg";
 import NumberInput from "../../components/common/NumberInput";
-import Select from "../../components/common/Select";
+import Select, { type SelectOption } from "../../components/common/Select";
 import Button from "../../components/common/Button";
-import { CHANNELS } from "../../data/home";
+import { CHANNELS, type ChannelKey } from "../../data/home";
 
 /* 간단 마진 계산기 — 도매가 입력 시 마진율별 판매가 즉시 계산
    (배송비·광고비·부가세 미반영 단순 계산) */
 
 const MARGIN_RATES = [0.2, 0.3, 0.4];
 
-const CHANNEL_OPTIONS = CHANNELS.map((c) => ({
+const CHANNEL_OPTIONS: SelectOption<ChannelKey>[] = CHANNELS.map((c) => ({
   value: c.key,
   label: `${c.label} (${(c.fee * 100).toFixed(1)}%)`,
 }));
 
-export default function MarginCalculator({ onVerify }) {
+interface MarginCalculatorProps {
+  onVerify?: () => void;
+}
+
+export default function MarginCalculator({ onVerify }: MarginCalculatorProps) {
   const [wholesale, setWholesale] = useState("");
   const [salePrice, setSalePrice] = useState("");
-  const [channelKey, setChannelKey] = useState(CHANNELS[0].key);
+  const [channelKey, setChannelKey] = useState<ChannelKey>(CHANNELS[0].key);
 
-  const channel = CHANNELS.find((c) => c.key === channelKey);
+  const channel = CHANNELS.find((c) => c.key === channelKey) ?? CHANNELS[0];
   const wholesaleNum = Number(wholesale) || 0;
   const salePriceNum = Number(salePrice) || 0;
 
   /* 판매가 = 도매가 ÷ (1 - 수수료 - 목표마진율), 100원 단위 올림 */
-  const priceForMargin = (rate) => Math.ceil(wholesaleNum / (1 - channel.fee - rate) / 100) * 100;
+  const priceForMargin = (rate: number) => Math.ceil(wholesaleNum / (1 - channel.fee - rate) / 100) * 100;
   /* 판매가 직접 입력 시 실제 마진율 */
   const actualMarginRate =
-    salePriceNum > 0 ? Math.round(((salePriceNum - wholesaleNum - salePriceNum * channel.fee) / salePriceNum) * 1000) / 10 : null;
+    salePriceNum > 0
+      ? Math.round(((salePriceNum - wholesaleNum - salePriceNum * channel.fee) / salePriceNum) * 1000) / 10
+      : null;
 
   return (
     <section className="bg-white rounded-2xl mx-5 mb-3 p-5">

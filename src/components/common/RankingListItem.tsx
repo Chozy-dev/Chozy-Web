@@ -1,8 +1,29 @@
 import RankChangeBadge from "./RankChangeBadge";
+import type { RankChange } from "../../data/home";
 
 /* 랭킹 리스트 아이템 — 순위 + 키워드명 + 변동 배지 (1위는 순위 숫자 강조) */
 
-export default function RankingListItem({ rank, name, change, steps, accent = false, last = false, onClick }) {
+interface RankingListItemProps {
+  rank: number;
+  name: string;
+  change: RankChange;
+  steps: number;
+  /** 순위 숫자를 프라이머리 색으로 강조 (1위) */
+  accent?: boolean;
+  /** 마지막 행이면 하단 보더 제거 */
+  last?: boolean;
+  onClick?: () => void;
+}
+
+export default function RankingListItem({
+  rank,
+  name,
+  change,
+  steps,
+  accent = false,
+  last = false,
+  onClick,
+}: RankingListItemProps) {
   return (
     <button
       onClick={onClick}

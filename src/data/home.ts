@@ -1,4 +1,9 @@
-/* 홈 화면 목데이터 — 백엔드 연동 시 API 응답으로 대체 */
+/* 홈 화면 목데이터 — 백엔드 연동 시 API 응답으로 대체
+   여기 정의된 타입이 곧 API 응답 계약이 되므로, 스펙 합의 시 이 파일을 기준으로 삼습니다. */
+
+import type { Tone } from "../lib/score";
+
+/* ---------- 카테고리 ---------- */
 
 export const CATEGORY_TREE = {
   전체: [],
@@ -11,10 +16,36 @@ export const CATEGORY_TREE = {
   식품: ["전체", "농산물", "가공식품", "건강식품", "음료"],
   "스포츠/레저": ["전체", "캠핑용품", "홈트레이닝", "골프", "자전거"],
   "생활/건강": ["전체", "생활용품", "건강용품", "반려동물", "차량용품"],
-};
+} satisfies Record<string, string[]>;
+
+export type CategoryName = keyof typeof CATEGORY_TREE;
+
+export const CATEGORY_NAMES = Object.keys(CATEGORY_TREE) as CategoryName[];
+
+/* ---------- 랭킹 ---------- */
 
 export const DEFAULT_RANK_COUNT = 9;
 export const MAX_RANK_COUNT = 50;
+
+/** 순위 변동: up(▲n단계) / down(▼n단계) / new(신규) / flat(-) */
+export type RankChange = "up" | "down" | "new" | "flat";
+
+export interface TrendKeyword {
+  rank: number;
+  name: string;
+  change: RankChange;
+  /** change가 up/down일 때만 의미 있는 값 (그 외 0) */
+  steps: number;
+}
+
+export interface RankedProduct {
+  rank: number;
+  name: string;
+  brand: string;
+  /** 통화 기호까지 포함된 표시용 문자열 (예: "6,887원") */
+  price: string;
+  aiScore: number;
+}
 
 const KEYWORD_POOL = [
   "휴대용 선풍기", "차량용 미니청소기", "캠핑 랜턴", "머슬핏 반팔티", "양털 파우치",
@@ -23,14 +54,13 @@ const KEYWORD_POOL = [
   "캠핑 의자", "여행용 파우치", "차량용 방향제", "등산 스틱", "캠핑 랜턴 거치대",
 ];
 
-/* 순위 변동: up(▲n단계) / down(▼n단계) / new(신규) / flat(-) */
-export function buildKeywordData(count) {
+export function buildKeywordData(count: number): TrendKeyword[] {
   return Array.from({ length: count }, (_, i) => {
     const rank = i + 1;
     const cycle = Math.floor(i / KEYWORD_POOL.length) + 1;
     const name = KEYWORD_POOL[i % KEYWORD_POOL.length] + (cycle > 1 ? ` ${cycle}차` : "");
     const mod = rank % 4;
-    const change = mod === 1 ? "up" : mod === 2 ? "down" : mod === 0 ? "new" : "flat";
+    const change: RankChange = mod === 1 ? "up" : mod === 2 ? "down" : mod === 0 ? "new" : "flat";
     const steps = change === "up" ? ((rank * 3) % 4) + 1 : change === "down" ? (rank % 3) + 1 : 0;
     return { rank, name, change, steps };
   });
@@ -47,7 +77,7 @@ const PRODUCT_POOL = [
   { name: "캠핑 접이식 테이블", brand: "캠프메이트", base: 22000 },
 ];
 
-export function buildProductData(count) {
+export function buildProductData(count: number): RankedProduct[] {
   return Array.from({ length: count }, (_, i) => {
     const rank = i + 1;
     const item = PRODUCT_POOL[i % PRODUCT_POOL.length];
@@ -61,22 +91,49 @@ export function buildProductData(count) {
   });
 }
 
-/* 투자 리포트 만들기 스테퍼 */
-export const REPORT_STEPS = [
+/* ---------- 투자 리포트 만들기 스테퍼 ---------- */
+
+export interface ReportStep {
+  num: number;
+  label: string;
+  caption: string;
+}
+
+export const REPORT_STEPS: ReportStep[] = [
   { num: 1, label: "후보등록", caption: "상품명 올리기" },
   { num: 2, label: "1차 스크리닝", caption: "수요·경쟁도 비교" },
   { num: 3, label: "관심상품", caption: "주력 후보 모으기" },
   { num: 4, label: "비용투자 적합도", caption: "광고비 투자 판단" },
 ];
 
-/* 마진 계산기 판매 채널 (수수료) */
-export const CHANNELS = [
+/* ---------- 마진 계산기 판매 채널 ---------- */
+
+export type ChannelKey = "smartstore" | "coupang" | "ably";
+
+export interface Channel {
+  key: ChannelKey;
+  label: string;
+  /** 판매 수수료 비율 (0~1) */
+  fee: number;
+}
+
+export const CHANNELS: Channel[] = [
   { key: "smartstore", label: "스마트스토어", fee: 0.058 },
   { key: "coupang", label: "쿠팡", fee: 0.108 },
   { key: "ably", label: "에이블리", fee: 0.15 },
 ];
 
-export const NOTIFICATIONS = [
+/* ---------- 알림 ---------- */
+
+export interface Notification {
+  type: string;
+  tone: Tone;
+  message: string;
+  time: string;
+  read: boolean;
+}
+
+export const NOTIFICATIONS: Notification[] = [
   { type: "AI 점수 변화", tone: "success", message: "캠핑 미니 랜턴 충전식의 AI 점수가 67 → 74로 올랐어요", time: "10분 전", read: false },
   { type: "공급가 변동", tone: "danger", message: "스카프 포인트 스카프 공급가가 120원 내렸어요", time: "1시간 전", read: false },
   { type: "재입고", tone: "success", message: "프리미엄 도넛방석이 품절 3일 만에 재입고됐어요", time: "3시간 전", read: false },

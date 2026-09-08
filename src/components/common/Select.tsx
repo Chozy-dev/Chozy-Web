@@ -2,16 +2,37 @@ import { useEffect, useRef, useState } from "react";
 import { Check, ChevronDown } from "lucide-react";
 
 /* 셀렉트 — 열림 시 프라이머리 보더, 선택 항목 체크(✓)+볼드 드롭다운
-   options: [{ value, label }] */
+   값 타입을 제네릭으로 받아 옵션·onChange가 같은 유니언으로 묶이도록 합니다. */
 
-export default function Select({ value, options, onChange, placeholder, disabled = false, className = "" }) {
+export interface SelectOption<T extends string = string> {
+  value: T;
+  label: string;
+}
+
+interface SelectProps<T extends string> {
+  value: T;
+  options: SelectOption<T>[];
+  onChange: (value: T) => void;
+  placeholder?: string;
+  disabled?: boolean;
+  className?: string;
+}
+
+export default function Select<T extends string>({
+  value,
+  options,
+  onChange,
+  placeholder,
+  disabled = false,
+  className = "",
+}: SelectProps<T>) {
   const [open, setOpen] = useState(false);
-  const rootRef = useRef(null);
+  const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!open) return;
-    const close = (e) => {
-      if (!rootRef.current?.contains(e.target)) setOpen(false);
+    const close = (e: MouseEvent) => {
+      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
     };
     document.addEventListener("mousedown", close);
     return () => document.removeEventListener("mousedown", close);
@@ -47,7 +68,11 @@ export default function Select({ value, options, onChange, placeholder, disabled
                   }}
                   className="w-full flex items-center gap-2 px-4 py-2.5 text-left text-sm"
                 >
-                  {isSelected ? <Check size={14} className="text-primary flex-shrink-0" /> : <span className="w-3.5 flex-shrink-0" />}
+                  {isSelected ? (
+                    <Check size={14} className="text-primary flex-shrink-0" />
+                  ) : (
+                    <span className="w-3.5 flex-shrink-0" />
+                  )}
                   <span className={isSelected ? "font-semibold text-gray-900" : "text-gray-400"}>{o.label}</span>
                 </button>
               </li>

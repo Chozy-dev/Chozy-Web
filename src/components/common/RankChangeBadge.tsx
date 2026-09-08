@@ -1,6 +1,13 @@
+import type { RankChange } from "../../data/home";
+
 /* 순위 변동 배지 — ▲n단계(빨강) / ▼n단계(파랑) / 신규 / - */
 
-export default function RankChangeBadge({ change, steps }) {
+interface RankChangeBadgeProps {
+  change: RankChange;
+  steps: number;
+}
+
+export default function RankChangeBadge({ change, steps }: RankChangeBadgeProps) {
   if (change === "up") {
     return <span className="text-[11px] font-semibold text-rise bg-rise-bg rounded-md px-1.5 py-0.5">▲ {steps}단계</span>;
   }

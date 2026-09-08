@@ -3,7 +3,11 @@ import Card from "../../components/common/Card";
 import Badge from "../../components/common/Badge";
 import { NOTIFICATIONS } from "../../data/home";
 
-export default function NotificationsView({ onBack }) {
+interface NotificationsViewProps {
+  onBack: () => void;
+}
+
+export default function NotificationsView({ onBack }: NotificationsViewProps) {
   return (
     <div className="px-4 pt-4 pb-24">
       <button onClick={onBack} className="flex items-center gap-1 text-stone-500 text-xs mb-3">
