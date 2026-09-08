@@ -11,6 +11,11 @@
   --color-fall: #3e7bfa;
   --color-fall-bg: #eaf1fe;
   --color-page: #f4f4f6;
+
+  /* Figma 색상 변수 — Black1(본문)·Black2(아이콘·보조)·Gray1(보더·선택 배경)·White */
+  --color-black1: #000000;
+  --color-black2: #4b5969;
+  --color-gray1: #ededed;
   --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont,
     system-ui, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
 }

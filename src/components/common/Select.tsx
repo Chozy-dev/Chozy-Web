@@ -55,13 +55,13 @@ export default function Select<T extends string>({
         disabled={disabled}
         onClick={() => setOpen((v) => !v)}
         className={`w-full p-3 bg-white rounded-[10px] outline outline-1 outline-offset-[-1px] flex justify-between items-center gap-2.5 text-left ${
-          open ? "outline-primary" : "outline-gray-200"
+          open ? "outline-primary" : "outline-gray1"
         }`}
       >
-        <span className={`pl-1 truncate text-sm font-medium ${disabled ? "text-gray-300" : "text-neutral-900"}`}>
+        <span className={`pl-1 truncate text-sm font-medium ${disabled ? "text-gray-300" : "text-black1"}`}>
           {selected ? selected.label : placeholder}
         </span>
-        <ChevronDown size={16} className={`flex-shrink-0 ${disabled ? "text-gray-300" : "text-neutral-600"}`} />
+        <ChevronDown size={16} className={`flex-shrink-0 ${disabled ? "text-gray-300" : "text-black2"}`} />
       </button>
 
       {open &&
@@ -75,8 +75,8 @@ export default function Select<T extends string>({
                     onChange(o.value);
                     setOpen(false);
                   }}
-                  className={`w-full px-2 py-1.5 rounded-lg flex justify-start items-center text-left text-black text-xs font-medium hover:bg-gray-100 ${
-                    o.value === value ? "bg-gray-100" : "bg-white"
+                  className={`w-full px-2 py-1.5 rounded-lg flex justify-start items-center text-left text-black1 text-xs font-medium hover:bg-gray1 ${
+                    o.value === value ? "bg-gray1" : "bg-white"
                   }`}
                 >
                   {o.label}
