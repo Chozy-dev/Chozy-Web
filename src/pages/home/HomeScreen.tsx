@@ -19,7 +19,7 @@ export default function HomeScreen() {
         </h1>
         <div className="flex items-center gap-2.5">
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/splash")}
             className="inline-flex justify-center items-center px-2.5 py-1.5 bg-white rounded-full shadow-[0px_4px_4px_0px_rgba(0,0,0,0.04)] text-sm font-semibold text-burgundy"
           >
             로그인
