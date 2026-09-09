@@ -73,7 +73,7 @@ export default function LoginScreen() {
 
       {/* 둘러보기 */}
       <div className="mt-[60px] flex justify-center">
-        <button type="button" onClick={() => navigate("/")} className="text-sm font-medium text-yellow-600 underline">
+        <button type="button" onClick={() => navigate("/")} className="text-sm font-medium text-gold underline">
           로그인 없이 둘러볼게요.
         </button>
       </div>
