@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import backArrow from "../../assets/common/back-arrow.svg";
 import scoreIcon from "../../assets/notification/ai-structure.svg";
 import supplyIcon from "../../assets/notification/supply-price-fluctuation.svg";
@@ -36,11 +37,8 @@ function NotificationItem({ notification }: { notification: AppNotification }) {
   );
 }
 
-interface NotificationsViewProps {
-  onBack: () => void;
-}
-
-export default function NotificationsView({ onBack }: NotificationsViewProps) {
+export default function NotificationsView() {
+  const navigate = useNavigate();
   const [notifications, setNotifications] = useState<AppNotification[]>(NOTIFICATIONS);
 
   const unread = notifications.filter((n) => !n.read);
@@ -52,7 +50,7 @@ export default function NotificationsView({ onBack }: NotificationsViewProps) {
       <header>
         <div className="h-12 pr-4 py-2.5 flex justify-start items-center gap-2.5">
           <div className="flex-1 px-4 flex justify-start items-center gap-4">
-            <button onClick={onBack} aria-label="뒤로">
+            <button onClick={() => navigate(-1)} aria-label="뒤로">
               <img src={backArrow} alt="" className="w-5 h-5" />
             </button>
           </div>
