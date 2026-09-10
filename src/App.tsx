@@ -1,28 +1,34 @@
-import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router";
+import AppShell from "./layouts/AppShell";
+import TabLayout from "./layouts/TabLayout";
 import HomeScreen from "./pages/home/HomeScreen";
-import BottomNav, { type TabKey } from "./components/common/BottomNav";
-
-const PLACEHOLDER_LABEL: Record<Exclude<TabKey, "home">, string> = {
-  search: "검색",
-  wishlist: "관심상품",
-  mypage: "마이페이지",
-};
+import NotificationsView from "./pages/notifications/NotificationsView";
+import SplashScreen from "./pages/auth/SplashScreen";
+import LoginScreen from "./pages/auth/LoginScreen";
+import Placeholder from "./pages/Placeholder";
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<TabKey>("home");
-
   return (
-    <div className="min-h-screen bg-page flex justify-center">
-      <div className="w-full max-w-md bg-page min-h-screen relative">
-        {activeTab === "home" ? (
-          <HomeScreen goSearch={() => setActiveTab("search")} />
-        ) : (
-          <div className="flex items-center justify-center h-screen">
-            <p className="text-sm text-gray-400">{PLACEHOLDER_LABEL[activeTab]} 화면 준비 중</p>
-          </div>
-        )}
-        <BottomNav active={activeTab} onChange={setActiveTab} />
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<AppShell />}>
+          {/* 하단 탭이 있는 화면 */}
+          <Route element={<TabLayout />}>
+            <Route path="/" element={<HomeScreen />} />
+            <Route path="/search" element={<Placeholder label="검색" />} />
+            <Route path="/wishlist" element={<Placeholder label="관심상품" />} />
+            <Route path="/mypage" element={<Placeholder label="마이페이지" />} />
+          </Route>
+
+          {/* 탭 없이 전체 화면으로 뜨는 화면 */}
+          <Route path="/notifications" element={<NotificationsView />} />
+          <Route path="/splash" element={<SplashScreen />} />
+          <Route path="/login" element={<LoginScreen />} />
+          <Route path="/signup" element={<Placeholder label="회원가입" />} />
+
+          <Route path="*" element={<Placeholder label="찾을 수 없는" />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
