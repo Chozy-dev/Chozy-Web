@@ -46,7 +46,7 @@ export default function InputBox({
           /* 포커스되면 플레이스홀더를 감추고 커서만 보이게 */
           placeholder={focused ? "" : placeholder}
           onChange={(e) => onChange(e.target.value)}
-          className="flex-1 min-w-0 bg-transparent outline-none caret-primary-dark text-base font-medium text-black1 placeholder:text-zinc-400 placeholder:font-medium"
+          className="flex-1 min-w-0 bg-transparent outline-none caret-primary-dark text-base font-medium text-zinc-900 placeholder:text-zinc-400 placeholder:font-medium"
           onFocus={(e) => {
             setFocused(true);
             onFocus?.(e);
@@ -77,9 +77,9 @@ export default function InputBox({
             onMouseDown={(e) => e.preventDefault()}
             onClick={() => onChange("")}
             aria-label={`${label} 지우기`}
-            className="flex-shrink-0 w-5 h-5 rounded-full bg-gray3 flex items-center justify-center"
+            className="flex-shrink-0 w-5 h-5 rounded-full bg-zinc-300 flex items-center justify-center"
           >
-            <X size={12} strokeWidth={3} className="text-white" />
+            <X size={10} strokeWidth={3} className="text-white" />
           </button>
         )}
       </div>

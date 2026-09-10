@@ -23,7 +23,7 @@ export default function AuthButton({ variant = "primary", disabled, children, ..
     <button
       type="button"
       disabled={disabled}
-      className={`self-stretch h-12 px-4 py-2.5 rounded-sm flex justify-center items-center text-base font-medium ${style}`}
+      className={`self-stretch h-12 px-4 py-2.5 rounded-xl flex justify-center items-center text-base font-medium ${style}`}
       {...props}
     >
       {children}
