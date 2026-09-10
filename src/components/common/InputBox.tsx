@@ -2,7 +2,7 @@ import { useState, type InputHTMLAttributes } from "react";
 import { Eye, EyeOff, X } from "lucide-react";
 
 /* 라벨 + 밑줄 입력 — 로그인·회원가입 공용
-   포커스 시 밑줄이 프라이머리로 바뀌고 플레이스홀더는 감춰지며,
+   포커스 시 라벨·밑줄이 프라이머리로 바뀌고 플레이스홀더는 감춰지며,
    값이 있으면 지우기 버튼(비밀번호는 표시 토글까지) 노출 */
 
 type NativeProps = Omit<InputHTMLAttributes<HTMLInputElement>, "className" | "value" | "onChange" | "type">;
@@ -34,7 +34,7 @@ export default function InputBox({
 
   return (
     <div className={`h-16 flex flex-col justify-start items-start ${className}`}>
-      <label className="text-sm font-medium text-neutral-500">{label}</label>
+      <label className={`text-sm font-medium ${focused ? "text-primary-dark" : "text-neutral-500"}`}>{label}</label>
       <div
         className={`self-stretch h-11 px-1 py-3 border-b flex justify-start items-center gap-3 ${
           focused ? "border-primary-dark" : "border-zinc-400"
