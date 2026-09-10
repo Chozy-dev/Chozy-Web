@@ -65,9 +65,9 @@ export default function InputBox({
             onMouseDown={(e) => e.preventDefault()}
             onClick={() => setRevealed((v) => !v)}
             aria-label={revealed ? "비밀번호 숨기기" : "비밀번호 표시"}
-            className="flex-shrink-0 text-gray3"
+            className="flex-shrink-0 text-zinc-400"
           >
-            {revealed ? <EyeOff size={20} /> : <Eye size={20} />}
+            {revealed ? <EyeOff size={24} /> : <Eye size={24} />}
           </button>
         )}
 
