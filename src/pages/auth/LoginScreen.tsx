@@ -4,13 +4,20 @@ import logo from "../../assets/home/logo.svg";
 import naverIcon from "../../assets/auth/naver.svg";
 import kakaoIcon from "../../assets/auth/kakao.svg";
 import InputBox from "../../components/common/InputBox";
+import Toast from "../../components/common/Toast";
+import AuthButton from "../../components/auth/AuthButton";
 
 export default function LoginScreen() {
   const navigate = useNavigate();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
 
-  const canSubmit = id.trim() !== "" && password.trim() !== "";
+  /* 아이디·비밀번호가 각각 1자 이상일 때 활성 */
+  const canSubmit = id.length > 0 && password.length > 0;
+
+  /* 인증 API 연동 전까지는 실패 토스트만 노출 */
+  const handleLogin = () => setError(true);
 
   return (
     <div className="min-h-screen bg-white px-4 pb-10">
@@ -26,7 +33,7 @@ export default function LoginScreen() {
           label="아이디"
           placeholder="아이디를 입력해주세요."
           value={id}
-          onChange={(e) => setId(e.target.value)}
+          onChange={setId}
           className="self-stretch"
           autoComplete="username"
         />
@@ -35,7 +42,7 @@ export default function LoginScreen() {
           type="password"
           placeholder="비밀번호를 입력해주세요."
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={setPassword}
           className="self-stretch"
           autoComplete="current-password"
         />
@@ -43,22 +50,12 @@ export default function LoginScreen() {
 
       {/* 로그인 · 회원가입 */}
       <div className="mt-[34px] flex flex-col justify-start items-start gap-3">
-        <button
-          type="button"
-          disabled={!canSubmit}
-          className={`self-stretch h-12 p-2.5 rounded-sm flex justify-center items-center text-base font-medium text-white ${
-            canSubmit ? "bg-primary-dark" : "bg-zinc-300"
-          }`}
-        >
+        <AuthButton disabled={!canSubmit} onClick={handleLogin}>
           로그인
-        </button>
-        <button
-          type="button"
-          onClick={() => navigate("/signup")}
-          className="self-stretch h-12 px-4 py-2.5 bg-stone-50 rounded-sm flex justify-center items-center text-base font-medium text-zinc-600"
-        >
+        </AuthButton>
+        <AuthButton variant="secondary" onClick={() => navigate("/signup")}>
           회원가입
-        </button>
+        </AuthButton>
       </div>
 
       {/* 소셜 로그인 */}
@@ -77,6 +74,12 @@ export default function LoginScreen() {
           로그인 없이 둘러볼게요.
         </button>
       </div>
+
+      <Toast
+        open={error}
+        onClose={() => setError(false)}
+        message="아이디 또는 비밀번호가 올바르지 않아요."
+      />
     </div>
   );
 }
