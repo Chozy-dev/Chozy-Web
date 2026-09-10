@@ -1,5 +1,7 @@
 import { useState, type InputHTMLAttributes } from "react";
-import { Eye, EyeOff, X } from "lucide-react";
+import eyeClosedIcon from "../../assets/auth/eye-closed.svg";
+import eyeOpenedIcon from "../../assets/auth/eye-opened.svg";
+import deleteIcon from "../../assets/auth/delete.svg";
 
 /* 라벨 + 밑줄 입력 — 로그인·회원가입 공용
    포커스 시 라벨·밑줄이 프라이머리로 바뀌고 플레이스홀더는 감춰지며,
@@ -65,9 +67,9 @@ export default function InputBox({
             onMouseDown={(e) => e.preventDefault()}
             onClick={() => setRevealed((v) => !v)}
             aria-label={revealed ? "비밀번호 숨기기" : "비밀번호 표시"}
-            className="flex-shrink-0 text-zinc-400"
+            className="flex-shrink-0"
           >
-            {revealed ? <EyeOff size={24} /> : <Eye size={24} />}
+            <img src={revealed ? eyeOpenedIcon : eyeClosedIcon} alt="" className="w-6 h-6" />
           </button>
         )}
 
@@ -77,9 +79,9 @@ export default function InputBox({
             onMouseDown={(e) => e.preventDefault()}
             onClick={() => onChange("")}
             aria-label={`${label} 지우기`}
-            className="flex-shrink-0 w-5 h-5 rounded-full bg-zinc-300 flex items-center justify-center"
+            className="flex-shrink-0"
           >
-            <X size={10} strokeWidth={3} className="text-white" />
+            <img src={deleteIcon} alt="" className="w-6 h-6" />
           </button>
         )}
       </div>
