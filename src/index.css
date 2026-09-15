@@ -24,6 +24,7 @@
   --color-divider: #dfdfdf; /* 목록 구분선 */
   --color-gray2: #a3a3a3; /* '신규' 텍스트 */
   --color-gray3: #c6c6c6; /* '-' 텍스트 */
+  --color-gold: #d29419; /* 보조 링크 (둘러보기) */
   --font-sans: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont,
     system-ui, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
 }
