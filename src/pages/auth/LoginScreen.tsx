@@ -7,6 +7,9 @@ import InputBox from "../../components/common/InputBox";
 import Toast from "../../components/common/Toast";
 import AuthButton from "../../components/auth/AuthButton";
 
+/* 임시 테스트 계정 — 인증 API 연동 시 제거 */
+const TEST_ACCOUNT = { id: "admin", password: "1111" };
+
 export default function LoginScreen() {
   const navigate = useNavigate();
   const [id, setId] = useState("");
@@ -16,8 +19,15 @@ export default function LoginScreen() {
   /* 아이디·비밀번호가 각각 1자 이상일 때 활성 */
   const canSubmit = id.length > 0 && password.length > 0;
 
-  /* 인증 API 연동 전까지는 실패 토스트만 노출 */
-  const handleLogin = () => setError(true);
+  /* 인증 API 연동 전까지는 테스트 계정(admin / 1111)만 통과
+     성공 시 replace로 홈 이동 → 뒤로가기해도 로그인 화면으로 돌아오지 않음 */
+  const handleLogin = () => {
+    if (id === TEST_ACCOUNT.id && password === TEST_ACCOUNT.password) {
+      navigate("/", { replace: true });
+      return;
+    }
+    setError(true);
+  };
 
   return (
     <div className="min-h-screen bg-white px-4 pb-10">

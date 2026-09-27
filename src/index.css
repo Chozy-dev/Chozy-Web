@@ -35,6 +35,13 @@ body {
 }
 
 @layer base {
+  /* 모든 입력의 텍스트 커서(캐럿)는 프라이머리 다크(#800025) */
+  input,
+  textarea,
+  [contenteditable] {
+    caret-color: var(--color-primary-dark);
+  }
+
   /* Tailwind v4 preflight는 버튼 커서를 default로 두기 때문에 손가락 커서를 되살립니다 */
   button:not(:disabled),
   [role="button"]:not(:disabled),
