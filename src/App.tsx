@@ -6,6 +6,7 @@ import NotificationsView from "./pages/notifications/NotificationsView";
 import LoginScreen from "./pages/auth/LoginScreen";
 import TermsAgreementScreen from "./pages/auth/TermsAgreementScreen";
 import VerifyMethodScreen from "./pages/auth/VerifyMethodScreen";
+import PhoneVerifyScreen from "./pages/auth/PhoneVerifyScreen";
 import Placeholder from "./pages/Placeholder";
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/signup" element={<TermsAgreementScreen />} />
           <Route path="/signup/method" element={<VerifyMethodScreen />} />
+          <Route path="/signup/verify/phone" element={<PhoneVerifyScreen />} />
           <Route path="/signup/form" element={<Placeholder label="회원가입" />} />
           <Route path="/signup/verify/email" element={<Placeholder label="이메일 인증" />} />
 
