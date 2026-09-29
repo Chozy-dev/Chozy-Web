@@ -5,6 +5,7 @@ import checkSuccess from "../../assets/auth/check-circle-success.svg";
 import InputBox from "../../components/common/InputBox";
 import InputActionButton from "../../components/common/InputActionButton";
 import AuthButton from "../../components/auth/AuthButton";
+import ErrorText from "../../components/auth/ErrorText";
 import Toast from "../../components/common/Toast";
 
 /* 회원가입 4단계 — 아이디·비밀번호 입력
@@ -29,16 +30,6 @@ const isValidPassword = (v: string) => v.length >= PASSWORD_MIN && /[a-zA-Z]/.te
 /* 공백은 입력 자체를 막고 최대 길이에서 자름. 비밀번호는 영문 키보드 문자만 */
 const normalizeId = (v: string) => v.replace(/\s/g, "").slice(0, ID_MAX);
 const normalizePassword = (v: string) => v.replace(/[^\x21-\x7E]/g, "").slice(0, PASSWORD_MAX);
-
-function ErrorText({ lines }: { lines: string[] }) {
-  return (
-    <div className="text-sm font-medium text-red-500">
-      {lines.map((line) => (
-        <p key={line}>{line}</p>
-      ))}
-    </div>
-  );
-}
 
 type IdCheck = "unchecked" | "available" | "taken";
 type ToastKind = "available" | "taken" | null;
