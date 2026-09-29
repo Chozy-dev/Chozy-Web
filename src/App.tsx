@@ -10,6 +10,7 @@ import PhoneVerifyScreen from "./pages/auth/PhoneVerifyScreen";
 import EmailVerifyScreen from "./pages/auth/EmailVerifyScreen";
 import AccountFormScreen from "./pages/auth/AccountFormScreen";
 import NicknameScreen from "./pages/auth/NicknameScreen";
+import SignupCompleteScreen from "./pages/auth/SignupCompleteScreen";
 import Placeholder from "./pages/Placeholder";
 
 export default function App() {
@@ -33,7 +34,7 @@ export default function App() {
           <Route path="/signup/verify/phone" element={<PhoneVerifyScreen />} />
           <Route path="/signup/form" element={<AccountFormScreen />} />
           <Route path="/signup/profile" element={<NicknameScreen />} />
-          <Route path="/signup/complete" element={<Placeholder label="회원가입 완료" />} />
+          <Route path="/signup/complete" element={<SignupCompleteScreen />} />
           <Route path="/signup/verify/email" element={<EmailVerifyScreen />} />
 
           <Route path="*" element={<Placeholder label="찾을 수 없는" />} />
