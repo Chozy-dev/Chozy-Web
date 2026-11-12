@@ -1,13 +1,23 @@
 import { useState } from "react";
 import InterestProductCard from "../../components/interest/InterestProductCard";
+import InterestSort, { type InterestSortOrder } from "../../components/interest/InterestSort";
 import InterestTabs from "../../components/interest/InterestTabs";
-import { SAMPLE_INTEREST_PRODUCTS, type InterestStatus } from "../../data/interest";
+import { SAMPLE_INTEREST_PRODUCTS, type InterestProduct, type InterestStatus } from "../../data/interest";
+
+const byLatest = (a: InterestProduct, b: InterestProduct) => b.addedAt.localeCompare(a.addedAt);
+
+const SORT_PRODUCTS: Record<InterestSortOrder, (a: InterestProduct, b: InterestProduct) => number> = {
+  latest: byLatest,
+  score: (a, b) => b.score - a.score || byLatest(a, b),
+  change: (a, b) => Math.abs(b.scoreChange) - Math.abs(a.scoreChange) || byLatest(a, b),
+};
 
 export default function InterestScreen() {
   const [status, setStatus] = useState<InterestStatus>("watching");
+  const [sort, setSort] = useState<InterestSortOrder>("latest");
   const watching = SAMPLE_INTEREST_PRODUCTS.filter((product) => product.status === "watching");
   const selling = SAMPLE_INTEREST_PRODUCTS.filter((product) => product.status === "selling");
-  const products = status === "watching" ? watching : selling;
+  const products = (status === "watching" ? watching : selling).sort(SORT_PRODUCTS[sort]);
 
   return (
     <main className="min-h-dvh bg-back pb-24">
@@ -21,7 +31,10 @@ export default function InterestScreen() {
         <InterestTabs status={status} counts={{ watching: watching.length, selling: selling.length }} onChange={setStatus} />
       </header>
 
-      <div className="px-4 pt-4">
+      <div className="px-4 pt-2">
+        <div className="mb-2">
+          <InterestSort value={sort} onChange={setSort} />
+        </div>
         {products.length === 0 ? (
           <p className="py-16 text-center text-sm text-graytext1">
             {status === "watching" ? "관심중인 상품이 없어요." : "판매중인 상품이 없어요."}
