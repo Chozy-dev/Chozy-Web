@@ -3,13 +3,12 @@ import { readInterestPreference, writeInterestPreference } from "../../lib/inter
 
 const FIELDS = [
   { name: "priceChange", label: "공급가 변동률 (이상이면 알림)", unit: "%", min: 0.1, max: undefined, step: "any" },
-  { name: "stock", label: "재고 수량 (이하로 떨어지면 알림)", unit: "개", min: 0, max: undefined, step: 1 },
   { name: "scoreChange", label: "AI 점수 변동폭 (이상이면 알림)", unit: "점", min: 1, max: 100, step: 1 },
 ] as const;
 
 type AlertThresholds = Record<(typeof FIELDS)[number]["name"], number>;
 
-const DEFAULT_THRESHOLDS: AlertThresholds = { priceChange: 10, stock: 100, scoreChange: 5 };
+const DEFAULT_THRESHOLDS: AlertThresholds = { priceChange: 10, scoreChange: 5 };
 
 function readThresholds(): AlertThresholds {
   const saved = readInterestPreference("alert-thresholds");
