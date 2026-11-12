@@ -41,7 +41,7 @@ export default function InterestProductActions({ productNumber, status, onMove, 
               className={`${actionClassName} text-rose-600`}
               onClick={() => {
                 close();
-                if (window.confirm("이 상품을 관심상품에서 삭제할까요?")) onDelete();
+                onDelete();
               }}
             >
               <Trash2 size={12} aria-hidden className="shrink-0" />
