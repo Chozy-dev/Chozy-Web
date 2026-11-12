@@ -3,18 +3,20 @@ import checkIcon from "../../assets/auth/check-off.svg";
 
 /* 입력 필드 우측의 작은 액션 버튼 — '인증번호 받기', '인증하기' 등
    활성 zinc-600 / 비활성 zinc-300 텍스트, 배경은 동일.
-   done이면 '인증완료 ✓' 완료 표시(zinc-400, 누를 수 없음) */
+   done이면 '인증완료 ✓'(doneLabel로 변경 가능) 완료 표시(zinc-400, 누를 수 없음) */
 
 interface InputActionButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className"> {
   children: ReactNode;
   done?: boolean;
+  /** 완료 상태 문구 (예: 중복확인) */
+  doneLabel?: string;
 }
 
-export default function InputActionButton({ disabled, done = false, children, ...props }: InputActionButtonProps) {
+export default function InputActionButton({ disabled, done = false, doneLabel = "인증완료", children, ...props }: InputActionButtonProps) {
   if (done) {
     return (
       <span className="flex-shrink-0 h-8 pl-2 pr-1 py-1 bg-stone-50 rounded-sm flex items-center gap-0.5 text-sm font-medium text-zinc-400 whitespace-nowrap">
-        인증완료
+        {doneLabel}
         <img src={checkIcon} alt="" className="w-4 h-4" />
       </span>
     );
