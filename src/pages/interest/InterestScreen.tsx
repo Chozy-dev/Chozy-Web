@@ -1,4 +1,5 @@
 import { useState } from "react";
+import InterestProductActions from "../../components/interest/InterestProductActions";
 import InterestProductCard from "../../components/interest/InterestProductCard";
 import InterestSort, { type InterestSortOrder } from "../../components/interest/InterestSort";
 import InterestTabs from "../../components/interest/InterestTabs";
@@ -13,14 +14,25 @@ const SORT_PRODUCTS: Record<InterestSortOrder, (a: InterestProduct, b: InterestP
 };
 
 export default function InterestScreen() {
+  const [savedProducts, setSavedProducts] = useState(SAMPLE_INTEREST_PRODUCTS);
   const [status, setStatus] = useState<InterestStatus>("watching");
   const [sort, setSort] = useState<InterestSortOrder>("latest");
-  const watching = SAMPLE_INTEREST_PRODUCTS.filter((product) => product.status === "watching");
-  const selling = SAMPLE_INTEREST_PRODUCTS.filter((product) => product.status === "selling");
+  const watching = savedProducts.filter((product) => product.status === "watching");
+  const selling = savedProducts.filter((product) => product.status === "selling");
   const products = (status === "watching" ? watching : selling).sort(SORT_PRODUCTS[sort]);
 
+  const moveProduct = (productNumber: string, nextStatus: InterestStatus) => {
+    setSavedProducts((previous) =>
+      previous.map((product) => product.productNumber === productNumber ? { ...product, status: nextStatus } : product),
+    );
+  };
+
+  const deleteProduct = (productNumber: string) => {
+    setSavedProducts((previous) => previous.filter((product) => product.productNumber !== productNumber));
+  };
+
   return (
-    <main className="min-h-dvh bg-back pb-24">
+    <main className="isolate min-h-dvh bg-back pb-24">
       <header className="bg-white">
         <div className="flex h-[52px] items-center justify-between gap-3 px-4">
           <h1 className="text-xl font-bold text-black1">관심 상품</h1>
@@ -43,7 +55,17 @@ export default function InterestScreen() {
           <ul className="space-y-4">
             {products.map((product) => (
               <li key={product.productNumber}>
-                <InterestProductCard product={product} />
+                <InterestProductCard
+                  product={product}
+                  actions={
+                    <InterestProductActions
+                      productNumber={product.productNumber}
+                      status={product.status}
+                      onMove={(nextStatus) => moveProduct(product.productNumber, nextStatus)}
+                      onDelete={() => deleteProduct(product.productNumber)}
+                    />
+                  }
+                />
               </li>
             ))}
           </ul>

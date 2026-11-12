@@ -20,13 +20,13 @@ export default function InterestProductCard({ product, actions }: InterestProduc
       <div className="flex items-center gap-2.5">
         <img src={product.thumbnail} alt="" width={85} height={85} className="size-[85px] shrink-0 rounded-lg object-cover" />
         <div className="min-w-0 flex-1">
-          <h2 className="line-clamp-2 break-words text-sm leading-[17px]">{product.name}</h2>
+          <h2 className="line-clamp-2 break-keep wrap-anywhere text-sm leading-[17px]">{product.name}</h2>
           <p className="mt-0.5 text-xs font-medium leading-4 text-graytext1">{product.supplier}</p>
           <p className="mt-1 text-base font-bold leading-5 text-neutral-900">{number.format(product.wholesalePrice)}원</p>
         </div>
       </div>
 
-      <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-2.5 gap-y-0.5 text-sm leading-5">
+      <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-2.5 gap-y-px text-sm leading-5">
         <dt className="text-graytext1">재고 수량</dt>
         <dd>{number.format(product.stock)}개</dd>
         <dt className="text-graytext1">예상 마진</dt>
