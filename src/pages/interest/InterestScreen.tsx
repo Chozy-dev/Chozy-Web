@@ -1,4 +1,5 @@
 import { useState } from "react";
+import InterestAlertSettings from "../../components/interest/InterestAlertSettings";
 import InterestProductActions from "../../components/interest/InterestProductActions";
 import InterestProductCard from "../../components/interest/InterestProductCard";
 import InterestSort, { type InterestSortOrder } from "../../components/interest/InterestSort";
@@ -43,9 +44,7 @@ export default function InterestScreen() {
       <header className="bg-white">
         <div className="flex h-[52px] items-center justify-between gap-3 px-4">
           <h1 className="text-xl font-bold text-black1">관심 상품</h1>
-          <button type="button" disabled className="text-xs text-graytext1">
-            알림 기준 설정
-          </button>
+          <InterestAlertSettings />
         </div>
         <InterestTabs
           status={status}
