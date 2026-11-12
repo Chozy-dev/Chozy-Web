@@ -16,7 +16,11 @@ const SORT_PRODUCTS: Record<InterestSortOrder, (a: InterestProduct, b: InterestP
 export default function InterestScreen() {
   const [savedProducts, setSavedProducts] = useState(SAMPLE_INTEREST_PRODUCTS);
   const [status, setStatus] = useState<InterestStatus>("watching");
-  const [sort, setSort] = useState<InterestSortOrder>("latest");
+  const [sortByStatus, setSortByStatus] = useState<Record<InterestStatus, InterestSortOrder>>({
+    watching: "latest",
+    selling: "score",
+  });
+  const sort = sortByStatus[status];
   const watching = savedProducts.filter((product) => product.status === "watching");
   const selling = savedProducts.filter((product) => product.status === "selling");
   const products = (status === "watching" ? watching : selling).sort(SORT_PRODUCTS[sort]);
@@ -45,7 +49,11 @@ export default function InterestScreen() {
 
       <div className="px-4 pt-2">
         <div className="mb-2">
-          <InterestSort value={sort} onChange={setSort} />
+          <InterestSort
+            key={status}
+            value={sort}
+            onChange={(order) => setSortByStatus((previous) => ({ ...previous, [status]: order }))}
+          />
         </div>
         {products.length === 0 ? (
           <p className="py-16 text-center text-sm text-graytext1">
