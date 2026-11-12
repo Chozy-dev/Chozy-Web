@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import AppShell from "./layouts/AppShell";
 import TabLayout from "./layouts/TabLayout";
 import HomeScreen from "./pages/home/HomeScreen";
+import InterestScreen from "./pages/interest/InterestScreen";
 import NotificationsView from "./pages/notifications/NotificationsView";
 import LoginScreen from "./pages/auth/LoginScreen";
 import TermsAgreementScreen from "./pages/auth/TermsAgreementScreen";
@@ -18,7 +19,7 @@ export default function App() {
           <Route element={<TabLayout />}>
             <Route path="/" element={<HomeScreen />} />
             <Route path="/search" element={<Placeholder label="검색" />} />
-            <Route path="/wishlist" element={<Placeholder label="관심상품" />} />
+            <Route path="/wishlist" element={<InterestScreen />} />
             <Route path="/mypage" element={<Placeholder label="마이페이지" />} />
           </Route>
 
