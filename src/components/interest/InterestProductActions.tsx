@@ -11,7 +11,7 @@ interface InterestProductActionsProps {
 
 export default function InterestProductActions({ productNumber, status, onMove, onDelete }: InterestProductActionsProps) {
   const nextStatus = status === "watching" ? "selling" : "watching";
-  const actionClassName = "flex w-full items-center gap-3 rounded-xl px-2 py-1.5 text-left text-xs font-medium hover:bg-back focus-visible:bg-back";
+  const actionClassName = "flex min-h-7 w-full items-center gap-2.5 rounded-xl px-2 text-left text-xs font-medium hover:bg-back focus-visible:bg-back active:bg-back";
 
   return (
     <InterestPopover
@@ -31,7 +31,7 @@ export default function InterestProductActions({ productNumber, status, onMove, 
                 onMove(nextStatus);
               }}
             >
-              <ArrowLeftRight size={14} aria-hidden className="text-black2" />
+              <ArrowLeftRight size={12} aria-hidden className="shrink-0 text-black2" />
               {nextStatus === "selling" ? "판매중으로 전환" : "관심중으로 전환"}
             </button>
           </li>
@@ -44,7 +44,7 @@ export default function InterestProductActions({ productNumber, status, onMove, 
                 if (window.confirm("이 상품을 관심상품에서 삭제할까요?")) onDelete();
               }}
             >
-              <Trash2 size={14} aria-hidden />
+              <Trash2 size={12} aria-hidden className="shrink-0" />
               삭제하기
             </button>
           </li>

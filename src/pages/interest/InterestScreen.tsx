@@ -4,6 +4,7 @@ import InterestProductCard from "../../components/interest/InterestProductCard";
 import InterestSort, { type InterestSortOrder } from "../../components/interest/InterestSort";
 import InterestTabs from "../../components/interest/InterestTabs";
 import { SAMPLE_INTEREST_PRODUCTS, type InterestProduct, type InterestStatus } from "../../data/interest";
+import { readInterestPreference, writeInterestPreference } from "../../lib/interestStorage";
 
 const byLatest = (a: InterestProduct, b: InterestProduct) => b.addedAt.localeCompare(a.addedAt);
 
@@ -14,25 +15,27 @@ const SORT_PRODUCTS: Record<InterestSortOrder, (a: InterestProduct, b: InterestP
 };
 
 export default function InterestScreen() {
-  const [savedProducts, setSavedProducts] = useState(SAMPLE_INTEREST_PRODUCTS);
+  const [productStatus, setProductStatus] = useState(() => readInterestPreference("product-status"));
   const [status, setStatus] = useState<InterestStatus>("watching");
   const [sortByStatus, setSortByStatus] = useState<Record<InterestStatus, InterestSortOrder>>({
     watching: "latest",
     selling: "score",
   });
   const sort = sortByStatus[status];
-  const watching = savedProducts.filter((product) => product.status === "watching");
-  const selling = savedProducts.filter((product) => product.status === "selling");
-  const products = (status === "watching" ? watching : selling).sort(SORT_PRODUCTS[sort]);
+  const productsByStatus: Record<InterestStatus, InterestProduct[]> = { watching: [], selling: [] };
 
-  const moveProduct = (productNumber: string, nextStatus: InterestStatus) => {
-    setSavedProducts((previous) =>
-      previous.map((product) => product.productNumber === productNumber ? { ...product, status: nextStatus } : product),
-    );
-  };
+  for (const product of SAMPLE_INTEREST_PRODUCTS) {
+    const savedStatus = productStatus[product.productNumber];
+    if (savedStatus === null) continue;
+    const currentStatus = savedStatus === "watching" || savedStatus === "selling" ? savedStatus : product.status;
+    productsByStatus[currentStatus].push({ ...product, status: currentStatus });
+  }
+  const products = productsByStatus[status].sort(SORT_PRODUCTS[sort]);
 
-  const deleteProduct = (productNumber: string) => {
-    setSavedProducts((previous) => previous.filter((product) => product.productNumber !== productNumber));
+  const updateProductStatus = (productNumber: string, nextStatus: InterestStatus | null) => {
+    const updated = { ...productStatus, ...readInterestPreference("product-status"), [productNumber]: nextStatus };
+    setProductStatus(updated);
+    writeInterestPreference("product-status", updated);
   };
 
   return (
@@ -44,7 +47,11 @@ export default function InterestScreen() {
             알림 기준 설정
           </button>
         </div>
-        <InterestTabs status={status} counts={{ watching: watching.length, selling: selling.length }} onChange={setStatus} />
+        <InterestTabs
+          status={status}
+          counts={{ watching: productsByStatus.watching.length, selling: productsByStatus.selling.length }}
+          onChange={setStatus}
+        />
       </header>
 
       <div className="px-4 pt-2">
@@ -69,8 +76,8 @@ export default function InterestScreen() {
                     <InterestProductActions
                       productNumber={product.productNumber}
                       status={product.status}
-                      onMove={(nextStatus) => moveProduct(product.productNumber, nextStatus)}
-                      onDelete={() => deleteProduct(product.productNumber)}
+                      onMove={(nextStatus) => updateProductStatus(product.productNumber, nextStatus)}
+                      onDelete={() => updateProductStatus(product.productNumber, null)}
                     />
                   }
                 />
