@@ -29,6 +29,10 @@
     system-ui, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
 }
 
+:root {
+  --compact-tab-bar-height: 60px;
+}
+
 html,
 body {
   font-family: var(--font-sans);
