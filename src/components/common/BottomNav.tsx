@@ -31,19 +31,44 @@ function MaskIcon({ src, className = "" }: { src: string; className?: string }) 
 
 interface BottomNavProps {
   active: TabKey;
+  compact?: boolean;
   onChange?: (key: TabKey) => void;
 }
 
-export default function BottomNav({ active, onChange }: BottomNavProps) {
+export default function BottomNav({ active, compact = false, onChange }: BottomNavProps) {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 mx-auto max-w-md bg-white border-t border-gray-100">
-      <div className="flex justify-around pt-2 pb-3">
+    <nav
+      aria-label="하단 메뉴"
+      className={`fixed inset-x-0 bottom-0 mx-auto max-w-md bg-white ${
+        compact
+          ? "pb-[env(safe-area-inset-bottom,0px)] shadow-[0_-4px_10px_rgba(0,0,0,0.04)]"
+          : "border-t border-gray-100"
+      }`}
+    >
+      <div className={compact ? "flex min-h-[var(--compact-tab-bar-height)]" : "flex justify-around pt-2 pb-3"}>
         {ITEMS.map(({ key, label, icon }) => {
           const isActive = active === key;
           return (
-            <button key={key} onClick={() => onChange?.(key)} className="flex flex-col items-center gap-1 px-4 py-0.5">
-              <MaskIcon src={icon} className={`w-7 h-7 ${isActive ? "text-primary-dark" : "text-gray-300"}`} />
-              <span className={`text-xs ${isActive ? "text-primary-dark font-bold" : "text-gray-400"}`}>{label}</span>
+            <button
+              key={key}
+              type="button"
+              aria-current={isActive ? "page" : undefined}
+              onClick={() => onChange?.(key)}
+              className={`flex flex-col items-center ${
+                compact ? "min-w-0 flex-1 justify-center gap-0.5 py-2" : "gap-1 px-4 py-0.5"
+              }`}
+            >
+              <MaskIcon
+                src={icon}
+                className={`size-7 shrink-0 ${isActive ? "text-primary-dark" : compact ? "text-[#cdcdcd]" : "text-gray-300"}`}
+              />
+              <span
+                className={`text-xs ${compact ? "leading-[14px] font-normal" : isActive ? "font-bold" : ""} ${
+                  isActive ? "text-primary-dark" : compact ? "text-gray1" : "text-gray-400"
+                }`}
+              >
+                {label}
+              </span>
             </button>
           );
         })}

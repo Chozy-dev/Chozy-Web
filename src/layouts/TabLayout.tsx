@@ -20,7 +20,7 @@ export default function TabLayout() {
   return (
     <>
       <Outlet />
-      <BottomNav active={active} onChange={(key) => navigate(TAB_PATH[key])} />
+      <BottomNav active={active} compact={active === "mypage"} onChange={(key) => navigate(TAB_PATH[key])} />
     </>
   );
 }
