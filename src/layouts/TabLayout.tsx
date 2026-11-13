@@ -15,7 +15,10 @@ const TAB_KEYS = Object.keys(TAB_PATH) as TabKey[];
 export default function TabLayout() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const active = TAB_KEYS.find((k) => TAB_PATH[k] === pathname) ?? "home";
+  const active = TAB_KEYS.find((key) => {
+    const path = TAB_PATH[key];
+    return pathname === path || pathname.startsWith(`${path}/`);
+  }) ?? "home";
 
   return (
     <>

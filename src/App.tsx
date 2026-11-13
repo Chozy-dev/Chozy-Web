@@ -15,6 +15,7 @@ import SignupCompleteScreen from "./pages/auth/SignupCompleteScreen";
 import MyPageScreen from "./pages/mypage/MyPageScreen";
 import MyPageDetails from "./pages/mypage/MyPageDetails";
 import AccountManagementScreen from "./pages/mypage/AccountManagementScreen";
+import SubscriptionManagementScreen from "./pages/mypage/SubscriptionManagementScreen";
 import Placeholder from "./pages/Placeholder";
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
             <Route path="/search" element={<Placeholder label="검색" />} />
             <Route path="/wishlist" element={<InterestScreen />} />
             <Route path="/mypage" element={<MyPageScreen />} />
+            <Route path="/mypage/subscription" element={<SubscriptionManagementScreen />} />
           </Route>
 
           {/* 탭 없이 전체 화면으로 뜨는 화면 */}

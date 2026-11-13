@@ -7,6 +7,7 @@ import usePreference from "./usePreference";
 
 const MANAGEMENT_LINKS = [
   { label: "계정 관리", to: "/mypage/account" },
+  { label: "구독 관리", to: "/mypage/subscription" },
 ];
 const UPCOMING = ["쿠폰 등록", "자주 묻는 질문", "고객센터"];
 const CONSENT_OPTIONS = ["on", "off"] as const;
@@ -79,6 +80,12 @@ export default function MyPageScreen() {
           <div className="mt-3.5 rounded-2xl bg-back p-5">
             <p className="text-xs leading-4 font-medium text-neutral-500">{PREMIUM_BENEFITS.join(", ")}</p>
             <p className="mt-0.5 text-sm leading-4 font-semibold">프리미엄 월 {PREMIUM_MONTHLY_PRICE}</p>
+            <Link
+              to="/mypage/subscription"
+              className="mt-[17px] flex min-h-[45px] items-center justify-center rounded-xl bg-burgundy px-3 text-center text-xs font-medium text-white"
+            >
+              7일 무료체험 시작하기
+            </Link>
           </div>
         </section>
 
