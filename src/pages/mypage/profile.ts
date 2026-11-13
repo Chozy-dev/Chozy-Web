@@ -1,6 +1,8 @@
 export const PROFILE = {
   name: "김도매",
+  nickname: "도매왕",
   email: "example@naver.com",
+  maskedPhone: "010-****-9810",
   daysSinceSignup: 5,
 };
 

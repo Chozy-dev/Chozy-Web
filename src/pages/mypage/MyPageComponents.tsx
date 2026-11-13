@@ -1,4 +1,16 @@
 import { Link } from "react-router";
+import backArrow from "../../assets/common/back-arrow.svg";
+
+export function ManagementHeader({ title }: { title: string }) {
+  return (
+    <header className="flex h-12 items-center gap-1 px-4 text-black1">
+      <Link to="/mypage" className="-ml-3 grid size-11 shrink-0 place-items-center" aria-label="마이페이지로 돌아가기">
+        <img src={backArrow} alt="" className="size-5" />
+      </Link>
+      <h1 className="text-xl leading-7 font-semibold">{title}</h1>
+    </header>
+  );
+}
 
 export function AccountActions() {
   return (

@@ -1,10 +1,13 @@
-import { Info } from "lucide-react";
+import { ChevronRight, Info } from "lucide-react";
 import { Link } from "react-router";
 import defaultAvatar from "../../assets/mypage/search-gray.svg";
 import { AccountActions, PlanBadge, PreferenceSwitch, UsageProgress } from "./MyPageComponents";
 import { PREMIUM_BENEFITS, PREMIUM_MONTHLY_PRICE, PROFILE, USAGE } from "./profile";
 import usePreference from "./usePreference";
 
+const MANAGEMENT_LINKS = [
+  { label: "계정 관리", to: "/mypage/account" },
+];
 const UPCOMING = ["쿠폰 등록", "자주 묻는 질문", "고객센터"];
 const CONSENT_OPTIONS = ["on", "off"] as const;
 
@@ -81,6 +84,14 @@ export default function MyPageScreen() {
 
         <nav aria-label="마이페이지 메뉴" className="mt-5">
           <ul className="text-base leading-5 font-semibold">
+            {MANAGEMENT_LINKS.map(({ label, to }) => (
+              <li key={to}>
+                <Link to={to} className="flex min-h-[42px] items-center justify-between gap-3 px-4">
+                  {label}
+                  <ChevronRight size={16} className="shrink-0 text-graytext1" aria-hidden />
+                </Link>
+              </li>
+            ))}
             {UPCOMING.map((label) => (
               <li key={label} className="flex min-h-[42px] items-center justify-between gap-3 px-4 text-graytext1">
                 {label}

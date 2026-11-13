@@ -14,6 +14,7 @@ import NicknameScreen from "./pages/auth/NicknameScreen";
 import SignupCompleteScreen from "./pages/auth/SignupCompleteScreen";
 import MyPageScreen from "./pages/mypage/MyPageScreen";
 import MyPageDetails from "./pages/mypage/MyPageDetails";
+import AccountManagementScreen from "./pages/mypage/AccountManagementScreen";
 import Placeholder from "./pages/Placeholder";
 
 export default function App() {
@@ -31,6 +32,7 @@ export default function App() {
 
           {/* 탭 없이 전체 화면으로 뜨는 화면 */}
           <Route path="/notifications" element={<NotificationsView />} />
+          <Route path="/mypage/account" element={<AccountManagementScreen />} />
           <Route path="/mypage/terms" element={<MyPageDetails view="service" />} />
           <Route path="/mypage/privacy" element={<MyPageDetails view="privacy" />} />
           <Route path="/login" element={<LoginScreen />} />
