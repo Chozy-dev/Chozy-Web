@@ -53,10 +53,12 @@ interface PreferenceSwitchProps {
   checked: boolean;
   onChange: (checked: boolean) => void;
   labelledBy: string;
-  describedBy: string;
+  describedBy?: string;
+  size?: "default" | "small";
 }
 
-export function PreferenceSwitch({ checked, onChange, labelledBy, describedBy }: PreferenceSwitchProps) {
+export function PreferenceSwitch({ checked, onChange, labelledBy, describedBy, size = "default" }: PreferenceSwitchProps) {
+  const small = size === "small";
   return (
     <button
       type="button"
@@ -65,10 +67,14 @@ export function PreferenceSwitch({ checked, onChange, labelledBy, describedBy }:
       aria-labelledby={labelledBy}
       aria-describedby={describedBy}
       onClick={() => onChange(!checked)}
-      className={`relative h-7 w-[52px] shrink-0 -translate-y-0.5 rounded-full transition-colors ${checked ? "bg-primary-dark" : "bg-gray1"}`}
+      className={`relative shrink-0 rounded-full transition-colors ${
+        small ? "h-[18px] w-8 before:absolute before:-inset-y-3 before:-inset-x-1.5" : "h-7 w-[52px] -translate-y-0.5"
+      } ${checked ? "bg-primary-dark" : small ? "bg-[#b2b2b2]" : "bg-gray1"}`}
     >
       <span
-        className={`absolute top-0.5 left-0.5 size-6 rounded-full bg-white shadow-[2px_2px_4px_rgba(0,0,0,0.08)] transition-transform ${checked ? "translate-x-6" : ""}`}
+        className={`absolute top-0.5 left-0.5 rounded-full bg-white transition-transform ${
+          small ? "size-3.5 shadow-[1px_1px_2px_rgba(0,0,0,0.08)]" : "size-6 shadow-[2px_2px_4px_rgba(0,0,0,0.08)]"
+        } ${checked ? (small ? "translate-x-3.5" : "translate-x-6") : ""}`}
       />
     </button>
   );

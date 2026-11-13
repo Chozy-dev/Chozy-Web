@@ -8,6 +8,7 @@ import usePreference from "./usePreference";
 const MANAGEMENT_LINKS = [
   { label: "계정 관리", to: "/mypage/account" },
   { label: "구독 관리", to: "/mypage/subscription" },
+  { label: "알림 설정", to: "/mypage/alerts" },
 ];
 const UPCOMING = ["쿠폰 등록", "자주 묻는 질문", "고객센터"];
 const CONSENT_OPTIONS = ["on", "off"] as const;
