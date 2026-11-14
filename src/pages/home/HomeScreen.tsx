@@ -5,9 +5,11 @@ import ReportBanner from "./ReportBanner";
 import ReportStepper from "./ReportStepper";
 import MarginCalculator from "./MarginCalculator";
 import PopularKeywordHub from "./PopularKeywordHub";
+import { useAuthSession } from "../../auth/AuthSession";
 
 export default function HomeScreen() {
   const navigate = useNavigate();
+  const { signedIn } = useAuthSession();
   const goSearch = () => navigate("/search");
 
   return (
@@ -18,12 +20,14 @@ export default function HomeScreen() {
           <img src={logo} alt="Chozy" className="h-7 w-auto" />
         </h1>
         <div className="flex items-center gap-2.5">
-          <button
-            onClick={() => navigate("/login")}
-            className="inline-flex justify-center items-center px-2.5 py-1.5 bg-white rounded-full shadow-[0px_4px_4px_0px_rgba(0,0,0,0.04)] text-sm font-semibold text-burgundy"
-          >
-            로그인
-          </button>
+          {!signedIn && (
+            <button
+              onClick={() => navigate("/login")}
+              className="inline-flex justify-center items-center px-2.5 py-1.5 bg-white rounded-full shadow-[0px_4px_4px_0px_rgba(0,0,0,0.04)] text-sm font-semibold text-burgundy"
+            >
+              로그인
+            </button>
+          )}
           <button onClick={() => navigate("/notifications")}>
             <img src={alertIcon} alt="알림" className="w-6 h-6" />
           </button>
