@@ -18,6 +18,7 @@ import AlertSettingsScreen from "./pages/mypage/AlertSettingsScreen";
 import AccountManagementScreen from "./pages/mypage/AccountManagementScreen";
 import SubscriptionManagementScreen from "./pages/mypage/SubscriptionManagementScreen";
 import Placeholder from "./pages/Placeholder";
+import RequireSignIn from "./auth/RequireSignIn";
 
 export default function App() {
   return (
@@ -28,17 +29,21 @@ export default function App() {
           <Route element={<TabLayout />}>
             <Route path="/" element={<HomeScreen />} />
             <Route path="/search" element={<Placeholder label="검색" />} />
-            <Route path="/wishlist" element={<InterestScreen />} />
-            <Route path="/mypage" element={<MyPageScreen />} />
-            <Route path="/mypage/subscription" element={<SubscriptionManagementScreen />} />
+            <Route element={<RequireSignIn />}>
+              <Route path="/wishlist" element={<InterestScreen />} />
+              <Route path="/mypage" element={<MyPageScreen />} />
+              <Route path="/mypage/subscription" element={<SubscriptionManagementScreen />} />
+            </Route>
           </Route>
 
           {/* 탭 없이 전체 화면으로 뜨는 화면 */}
           <Route path="/notifications" element={<NotificationsView />} />
-          <Route path="/mypage/account" element={<AccountManagementScreen />} />
-          <Route path="/mypage/alerts" element={<AlertSettingsScreen />} />
-          <Route path="/mypage/terms" element={<MyPageDetails view="service" />} />
-          <Route path="/mypage/privacy" element={<MyPageDetails view="privacy" />} />
+          <Route element={<RequireSignIn />}>
+            <Route path="/mypage/account" element={<AccountManagementScreen />} />
+            <Route path="/mypage/alerts" element={<AlertSettingsScreen />} />
+            <Route path="/mypage/terms" element={<MyPageDetails view="service" />} />
+            <Route path="/mypage/privacy" element={<MyPageDetails view="privacy" />} />
+          </Route>
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/signup" element={<TermsAgreementScreen />} />
           <Route path="/signup/method" element={<VerifyMethodScreen />} />

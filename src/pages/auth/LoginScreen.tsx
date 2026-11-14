@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { useNavigate } from "react-router";
+import { Navigate, useLocation, useNavigate } from "react-router";
 import logo from "../../assets/home/logo.svg";
 import InputBox from "../../components/common/InputBox";
 import Toast from "../../components/common/Toast";
@@ -8,7 +8,8 @@ import { useAuthSession } from "../../auth/AuthSession";
 
 export default function LoginScreen() {
   const navigate = useNavigate();
-  const { signIn } = useAuthSession();
+  const { state } = useLocation();
+  const { signedIn, signIn } = useAuthSession();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -19,11 +20,15 @@ export default function LoginScreen() {
     event.preventDefault();
     if (!canSubmit) return;
 
-    if (signIn(id, password)) {
-      navigate("/", { replace: true });
-      return;
-    }
-    setError(true);
+    setError(!signIn(id, password));
+  }
+
+  if (signedIn) {
+    const returnTo: unknown = state?.returnTo;
+    const destination = typeof returnTo === "string" && /^\/(wishlist|mypage)(?:[/?#]|$)/i.test(returnTo)
+      ? returnTo
+      : "/";
+    return <Navigate to={destination} replace />;
   }
 
   return (
@@ -71,7 +76,7 @@ export default function LoginScreen() {
 
       {/* 둘러보기 */}
       <div className="mt-[60px] flex justify-center">
-        <button type="button" onClick={() => navigate("/")} className="text-sm font-medium text-gold underline">
+        <button type="button" onClick={() => navigate("/", { replace: true })} className="text-sm font-medium text-gold underline">
           로그인 없이 둘러볼게요.
         </button>
       </div>
