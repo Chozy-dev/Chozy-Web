@@ -1,5 +1,6 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import backArrow from "../../assets/common/back-arrow.svg";
+import { useAuthSession } from "../../auth/AuthSession";
 
 export function ManagementHeader({ title }: { title: string }) {
   return (
@@ -13,9 +14,17 @@ export function ManagementHeader({ title }: { title: string }) {
 }
 
 export function AccountActions() {
+  const { signOut } = useAuthSession();
+  const navigate = useNavigate();
+
+  function handleSignOut() {
+    signOut();
+    navigate("/login", { replace: true });
+  }
+
   return (
     <p className="flex justify-center gap-1 text-xs leading-[14px] font-medium text-gray1">
-      <Link to="/login" replace className="text-neutral-600">로그아웃</Link>
+      <button type="button" onClick={handleSignOut} className="text-neutral-600">로그아웃</button>
       <span aria-hidden>|</span>
       <button type="button" disabled>회원탈퇴</button>
     </p>
