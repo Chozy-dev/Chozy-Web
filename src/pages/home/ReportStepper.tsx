@@ -1,8 +1,7 @@
 import { Fragment } from "react";
 import { REPORT_STEPS } from "../../data/home";
 
-/* 투자 리포트 만들기 — 4단계 스테퍼
-   각 단계는 해당 리포트 페이지로 이동하는 버튼 (페이지 준비 전까지 onStepClick 미연결) */
+/* 투자 리포트 만들기 — 4단계 바로가기 */
 
 interface ReportStepperProps {
   activeStep?: number;

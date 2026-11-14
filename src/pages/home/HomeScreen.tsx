@@ -38,7 +38,9 @@ export default function HomeScreen() {
       <ReportBanner variant="used" />
 
       {/* 투자 리포트 만들기 스테퍼 */}
-      <ReportStepper activeStep={1} />
+      <ReportStepper activeStep={1} onStepClick={(step) => {
+        if (step === 3) navigate("/wishlist");
+      }} />
 
       {/* 간단 마진 계산기 */}
       <MarginCalculator onVerify={goSearch} />
