@@ -1,3 +1,4 @@
+import { startTransition } from "react";
 import { Link, useNavigate } from "react-router";
 import backArrow from "../../assets/common/back-arrow.svg";
 import { useAuthSession } from "../../auth/AuthSession";
@@ -18,8 +19,10 @@ export function AccountActions() {
   const navigate = useNavigate();
 
   function handleSignOut() {
-    signOut();
-    navigate("/login", { replace: true });
+    startTransition(() => {
+      signOut();
+      navigate("/login", { replace: true, state: { fromLogout: true } });
+    });
   }
 
   return (
