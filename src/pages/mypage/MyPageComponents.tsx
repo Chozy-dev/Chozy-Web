@@ -47,16 +47,19 @@ export function PlanBadge({ plan }: { plan: "Free" | "Premium" }) {
 }
 
 export function UsageProgress({ used, limit }: { used: number; limit: number }) {
+  const complete = used >= limit;
+  const percentage = limit > 0 ? Math.min(100, Math.max(0, used / limit * 100)) : 100;
+
   return (
     <div
       role="progressbar"
       aria-label="비용투자 적합도 이용량"
       aria-valuemin={0}
       aria-valuemax={limit}
-      aria-valuenow={used}
+      aria-valuenow={Math.min(limit, Math.max(0, used))}
       className="h-1.5 overflow-hidden rounded-full bg-white shadow-[0_4px_4px_rgba(0,0,0,0.01)]"
     >
-      <div className="h-full rounded-full bg-burgundy" style={{ width: `${used / limit * 100}%` }} />
+      <div className={`h-full rounded-full ${complete ? "bg-rise" : "bg-burgundy"}`} style={{ width: `${percentage}%` }} />
     </div>
   );
 }

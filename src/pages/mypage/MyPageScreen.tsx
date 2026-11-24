@@ -19,6 +19,7 @@ const CONSENT_OPTIONS = ["on", "off"] as const;
 
 export default function MyPageScreen() {
   const [marketingConsent, setMarketingConsent] = usePreference("marketing", CONSENT_OPTIONS, "on");
+  const investmentLimitReached = USAGE.investment.used >= USAGE.investment.limit;
 
   return (
     <main className="flex min-h-dvh flex-col bg-white pb-[calc(var(--compact-tab-bar-height)+env(safe-area-inset-bottom,0px))] text-black1">
@@ -51,7 +52,10 @@ export default function MyPageScreen() {
             <div className="flex min-h-[101px] flex-col rounded-2xl bg-back p-4">
               <h3 className="text-xs leading-4 font-medium text-graytext1">비용투자 적합도</h3>
               <p className="text-lg leading-6 font-semibold">{USAGE.investment.used}/{USAGE.investment.limit} 회</p>
-              <div className="mt-auto pt-3 pb-1">
+              <div className={`mt-auto pb-1 ${investmentLimitReached ? "" : "pt-3"}`}>
+                {investmentLimitReached && (
+                  <p className="mb-1 text-[10px] leading-[14px] font-medium text-rise">이번 달 한도를 다 썼어요.</p>
+                )}
                 <UsageProgress {...USAGE.investment} />
               </div>
             </div>
