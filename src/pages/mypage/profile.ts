@@ -14,4 +14,4 @@ export const USAGE = {
 };
 
 export const PREMIUM_MONTHLY_PRICE = "9,900원";
-export const PREMIUM_BENEFITS = ["비용투자 적합도 분석 일 30회", "관심상품 무제한"];
+export const PREMIUM_BENEFITS = ["비용투자 적합도 분석 일 30회", "관심상품 50개까지"];
