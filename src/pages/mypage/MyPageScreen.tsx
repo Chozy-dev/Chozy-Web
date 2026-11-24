@@ -10,7 +10,11 @@ const MANAGEMENT_LINKS = [
   { label: "구독 관리", to: "/mypage/subscription" },
   { label: "알림 설정", to: "/mypage/alerts" },
 ];
-const UPCOMING = ["쿠폰 등록", "자주 묻는 질문", "고객센터"];
+const ADDITIONAL_MENU: { label: string; to?: string }[] = [
+  { label: "쿠폰 등록" },
+  { label: "자주 묻는 질문", to: "/mypage/faq" },
+  { label: "고객센터" },
+];
 const CONSENT_OPTIONS = ["on", "off"] as const;
 
 export default function MyPageScreen() {
@@ -100,10 +104,19 @@ export default function MyPageScreen() {
                 </Link>
               </li>
             ))}
-            {UPCOMING.map((label) => (
-              <li key={label} className="flex min-h-[42px] items-center justify-between gap-3 px-4 text-graytext1">
-                {label}
-                <span className="pr-1 text-xs font-medium text-gray1">준비중</span>
+            {ADDITIONAL_MENU.map(({ label, to }) => (
+              <li key={label}>
+                {to ? (
+                  <Link to={to} className="flex min-h-[42px] items-center justify-between gap-3 px-4">
+                    {label}
+                    <ChevronRight size={16} className="shrink-0 text-graytext1" aria-hidden />
+                  </Link>
+                ) : (
+                  <div className="flex min-h-[42px] items-center justify-between gap-3 px-4 text-graytext1">
+                    {label}
+                    <span className="pr-1 text-xs font-medium text-gray1">준비중</span>
+                  </div>
+                )}
               </li>
             ))}
           </ul>
