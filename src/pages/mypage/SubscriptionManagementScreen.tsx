@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Toast from "../../components/common/Toast";
+import { X } from "lucide-react";
 import { ManagementHeader } from "./MyPageComponents";
 import { PREMIUM_BENEFITS, PREMIUM_MONTHLY_PRICE, USAGE } from "./profile";
 
@@ -20,7 +20,7 @@ export default function SubscriptionManagementScreen() {
   }, []);
 
   return (
-    <main className="min-h-dvh bg-back pb-[calc(var(--compact-tab-bar-height)+env(safe-area-inset-bottom,0px)+26px)] text-zinc-900">
+    <main className="min-h-dvh bg-back pb-[calc(var(--compact-tab-bar-height)+env(safe-area-inset-bottom,0px)+20px)] text-zinc-900">
       <ManagementHeader title="구독 관리" />
 
       <div className="px-4 pt-4">
@@ -59,7 +59,7 @@ export default function SubscriptionManagementScreen() {
           </div>
           <button
             type="button"
-            onClick={() => setMessage("7일 무료체험은 준비 중이에요.")}
+            onClick={() => setMessage("7일 무료체험은 결제 연동 후 제공될 예정이에요.")}
             className="mt-3 block min-h-[45px] w-full rounded-xl bg-burgundy px-3 text-xs font-medium text-white"
           >
             7일 무료체험 시작하기
@@ -81,7 +81,7 @@ export default function SubscriptionManagementScreen() {
                 <button
                   type="button"
                   aria-label={`리포트 ${count}회 구매`}
-                  onClick={() => setMessage("추가 리포트 구매는 준비 중이에요.")}
+                  onClick={() => setMessage(`추가 리포트 ${count}회 구매는 결제 연동 후 제공될 예정이에요.`)}
                   className="mt-2.5 min-w-[60px] rounded-full bg-rise-bg px-3 py-1 text-xs leading-[14px] font-semibold text-rise"
                 >
                   구매
@@ -91,7 +91,21 @@ export default function SubscriptionManagementScreen() {
           </ul>
         </section>
 
-        <ul aria-label="결제 설정" className="mt-[17px] space-y-6 rounded-[18px] bg-white p-5 text-sm leading-[17px] font-semibold text-graytext1">
+        {message && (
+          <div role="status" className="mt-3 flex translate-x-px items-center justify-between gap-2 rounded-2xl bg-rise-bg p-4 pr-5">
+            <p className="text-xs leading-[14px] font-medium text-rise">{message}</p>
+            <button
+              type="button"
+              aria-label="결제 연동 안내 닫기"
+              onClick={() => setMessage("")}
+              className="relative shrink-0 text-black1 before:absolute before:-inset-3"
+            >
+              <X size={14} aria-hidden />
+            </button>
+          </div>
+        )}
+
+        <ul aria-label="결제 설정" className={`space-y-6 rounded-[18px] bg-white p-5 text-sm leading-[17px] font-semibold text-graytext1 ${message ? "mt-4 translate-x-px" : "mt-[17px]"}`}>
           {PAYMENT_SETTINGS.map((label) => (
             <li key={label} className="flex items-center justify-between gap-2 pr-1">
               <span>{label}</span>
@@ -101,7 +115,6 @@ export default function SubscriptionManagementScreen() {
         </ul>
       </div>
 
-      <Toast open={Boolean(message)} message={message} onClose={() => setMessage("")} bottom="above-button" />
     </main>
   );
 }

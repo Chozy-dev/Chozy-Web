@@ -1,6 +1,9 @@
 import { useState, type FormEvent } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router";
 import logo from "../../assets/home/logo.svg";
+import backArrow from "../../assets/common/back-arrow.svg";
+import naverIcon from "../../assets/auth/naver.svg";
+import kakaoIcon from "../../assets/auth/kakao.svg";
 import InputBox from "../../components/common/InputBox";
 import Toast from "../../components/common/Toast";
 import AuthButton from "../../components/auth/AuthButton";
@@ -9,10 +12,11 @@ import { useAuthSession } from "../../auth/AuthSession";
 export default function LoginScreen() {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const fromLogout = state?.fromLogout === true;
   const { signedIn, signIn } = useAuthSession();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false);
+  const [message, setMessage] = useState("");
 
   const canSubmit = import.meta.env.DEV && id.length > 0 && password.length > 0;
 
@@ -20,7 +24,9 @@ export default function LoginScreen() {
     event.preventDefault();
     if (!canSubmit) return;
 
-    setError(!signIn(id, password));
+    if (!signIn(id, password)) {
+      setMessage("아이디 또는 비밀번호가 올바르지 않아요.");
+    }
   }
 
   if (signedIn) {
@@ -33,14 +39,28 @@ export default function LoginScreen() {
 
   return (
     <div className="min-h-screen bg-white px-4 pb-10">
+      {fromLogout && (
+        <header className="flex h-12 items-center">
+          <button
+            type="button"
+            aria-label="홈으로 돌아가기"
+            onClick={() => navigate("/", { replace: true })}
+            className="-ml-3 grid size-11 place-items-center"
+          >
+            <img src={backArrow} alt="" className="size-5" />
+          </button>
+        </header>
+      )}
       {/* 로고 + 태그라인 */}
-      <div className="pt-20 flex flex-col justify-start items-center gap-3">
-        <img src={logo} alt="Chozy" className="w-[130px]" />
-        <p className="text-sm font-medium text-neutral-500">모든 저가 플랫폼을 한 눈에</p>
+      <div className={`flex flex-col items-center ${fromLogout ? "pt-8 gap-2" : "pt-20 gap-3"}`}>
+        <img src={logo} alt="Chozy" className={fromLogout ? "w-[136px]" : "w-[130px]"} />
+        <p className={fromLogout ? "text-xs leading-4 font-medium text-graytext1" : "text-sm font-medium text-neutral-500"}>
+          {fromLogout ? "위탁 셀러를 위한 상품 검증 플랫폼" : "모든 저가 플랫폼을 한 눈에"}
+        </p>
       </div>
 
       <form onSubmit={handleLogin}>
-        <div className="mt-24 flex flex-col justify-start items-start gap-6">
+        <div className={`flex flex-col items-start ${fromLogout ? "mt-[102px] gap-5" : "mt-24 gap-6"}`}>
           <InputBox
             label="아이디"
             aria-label="아이디"
@@ -64,7 +84,7 @@ export default function LoginScreen() {
           />
         </div>
 
-        <div className="mt-[34px] flex flex-col justify-start items-start gap-3">
+        <div className={`flex flex-col items-start gap-3 ${fromLogout ? "mt-[38px]" : "mt-[34px]"}`}>
           <AuthButton type="submit" disabled={!canSubmit}>
             {import.meta.env.DEV ? "로그인" : "로그인 준비 중"}
           </AuthButton>
@@ -74,6 +94,17 @@ export default function LoginScreen() {
         </div>
       </form>
 
+      {fromLogout && (
+        <div className="mt-[60px] flex justify-center gap-2">
+          <button type="button" aria-label="네이버로 로그인" onClick={() => setMessage("네이버 로그인은 준비 중이에요.")}>
+            <img src={naverIcon} alt="" className="size-12" />
+          </button>
+          <button type="button" aria-label="카카오로 로그인" onClick={() => setMessage("카카오 로그인은 준비 중이에요.")}>
+            <img src={kakaoIcon} alt="" className="size-12" />
+          </button>
+        </div>
+      )}
+
       {/* 둘러보기 */}
       <div className="mt-[60px] flex justify-center">
         <button type="button" onClick={() => navigate("/", { replace: true })} className="text-sm font-medium text-gold underline">
@@ -82,9 +113,9 @@ export default function LoginScreen() {
       </div>
 
       <Toast
-        open={error}
-        onClose={() => setError(false)}
-        message="아이디 또는 비밀번호가 올바르지 않아요."
+        open={Boolean(message)}
+        onClose={() => setMessage("")}
+        message={message}
       />
     </div>
   );

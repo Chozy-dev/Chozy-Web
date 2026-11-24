@@ -10,11 +10,16 @@ const MANAGEMENT_LINKS = [
   { label: "구독 관리", to: "/mypage/subscription" },
   { label: "알림 설정", to: "/mypage/alerts" },
 ];
-const UPCOMING = ["쿠폰 등록", "자주 묻는 질문", "고객센터"];
+const ADDITIONAL_MENU: { label: string; to?: string }[] = [
+  { label: "쿠폰 등록" },
+  { label: "자주 묻는 질문", to: "/mypage/faq" },
+  { label: "고객센터", to: "/mypage/support" },
+];
 const CONSENT_OPTIONS = ["on", "off"] as const;
 
 export default function MyPageScreen() {
   const [marketingConsent, setMarketingConsent] = usePreference("marketing", CONSENT_OPTIONS, "on");
+  const investmentLimitReached = USAGE.investment.used >= USAGE.investment.limit;
 
   return (
     <main className="flex min-h-dvh flex-col bg-white pb-[calc(var(--compact-tab-bar-height)+env(safe-area-inset-bottom,0px))] text-black1">
@@ -47,7 +52,10 @@ export default function MyPageScreen() {
             <div className="flex min-h-[101px] flex-col rounded-2xl bg-back p-4">
               <h3 className="text-xs leading-4 font-medium text-graytext1">비용투자 적합도</h3>
               <p className="text-lg leading-6 font-semibold">{USAGE.investment.used}/{USAGE.investment.limit} 회</p>
-              <div className="mt-auto pt-3 pb-1">
+              <div className={`mt-auto pb-1 ${investmentLimitReached ? "" : "pt-3"}`}>
+                {investmentLimitReached && (
+                  <p className="mb-1 text-[10px] leading-[14px] font-medium text-rise">이번 달 한도를 다 썼어요.</p>
+                )}
                 <UsageProgress {...USAGE.investment} />
               </div>
             </div>
@@ -100,10 +108,19 @@ export default function MyPageScreen() {
                 </Link>
               </li>
             ))}
-            {UPCOMING.map((label) => (
-              <li key={label} className="flex min-h-[42px] items-center justify-between gap-3 px-4 text-graytext1">
-                {label}
-                <span className="pr-1 text-xs font-medium text-gray1">준비중</span>
+            {ADDITIONAL_MENU.map(({ label, to }) => (
+              <li key={label}>
+                {to ? (
+                  <Link to={to} className="flex min-h-[42px] items-center justify-between gap-3 px-4">
+                    {label}
+                    <ChevronRight size={16} className="shrink-0 text-graytext1" aria-hidden />
+                  </Link>
+                ) : (
+                  <div className="flex min-h-[42px] items-center justify-between gap-3 px-4 text-graytext1">
+                    {label}
+                    <span className="pr-1 text-xs font-medium text-gray1">준비중</span>
+                  </div>
+                )}
               </li>
             ))}
           </ul>

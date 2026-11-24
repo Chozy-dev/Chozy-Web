@@ -17,6 +17,8 @@ import MyPageDetails from "./pages/mypage/MyPageDetails";
 import AlertSettingsScreen from "./pages/mypage/AlertSettingsScreen";
 import AccountManagementScreen from "./pages/mypage/AccountManagementScreen";
 import SubscriptionManagementScreen from "./pages/mypage/SubscriptionManagementScreen";
+import FaqScreen from "./pages/mypage/FaqScreen";
+import CustomerSupportScreen from "./pages/mypage/CustomerSupportScreen";
 import Placeholder from "./pages/Placeholder";
 import RequireSignIn from "./auth/RequireSignIn";
 
@@ -41,6 +43,8 @@ export default function App() {
           <Route element={<RequireSignIn />}>
             <Route path="/mypage/account" element={<AccountManagementScreen />} />
             <Route path="/mypage/alerts" element={<AlertSettingsScreen />} />
+            <Route path="/mypage/faq" element={<FaqScreen />} />
+            <Route path="/mypage/support" element={<CustomerSupportScreen />} />
             <Route path="/mypage/terms" element={<MyPageDetails view="service" />} />
             <Route path="/mypage/privacy" element={<MyPageDetails view="privacy" />} />
           </Route>
