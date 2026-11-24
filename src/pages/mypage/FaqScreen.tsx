@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { ChevronRight } from "lucide-react";
-import Toast from "../../components/common/Toast";
+import { Link } from "react-router";
 import { FAQ_ITEMS } from "../../data/faq";
 import { ManagementHeader } from "./MyPageComponents";
 
 export default function FaqScreen() {
   const [openId, setOpenId] = useState<string | null>(null);
-  const [showSupportNotice, setShowSupportNotice] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -53,21 +52,16 @@ export default function FaqScreen() {
 
         <div className="mt-6 text-center font-medium">
           <p className="text-sm leading-[17px]">찾으시는 답변이 없나요?</p>
-          <button
-            type="button"
-            onClick={() => setShowSupportNotice(true)}
-            className="mt-1.5 text-xs leading-[14px] text-graytext1 underline"
+          <Link
+            to="/mypage/support"
+            state={{ fromFaq: true }}
+            className="mt-1.5 inline-block text-xs leading-[14px] text-graytext1 underline"
           >
             고객센터 문의하기
-          </button>
+          </Link>
         </div>
       </div>
 
-      <Toast
-        open={showSupportNotice}
-        onClose={() => setShowSupportNotice(false)}
-        message="고객센터는 준비 중이에요."
-      />
     </main>
   );
 }

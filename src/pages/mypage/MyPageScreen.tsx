@@ -13,7 +13,7 @@ const MANAGEMENT_LINKS = [
 const ADDITIONAL_MENU: { label: string; to?: string }[] = [
   { label: "쿠폰 등록" },
   { label: "자주 묻는 질문", to: "/mypage/faq" },
-  { label: "고객센터" },
+  { label: "고객센터", to: "/mypage/support" },
 ];
 const CONSENT_OPTIONS = ["on", "off"] as const;
 
