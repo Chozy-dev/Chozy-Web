@@ -4,11 +4,13 @@ interface InterestPopoverProps {
   trigger: ReactNode;
   label?: string;
   triggerClassName: string;
+  className?: string;
+  panelClassName?: string;
   align?: "left" | "right";
   children: (close: () => void) => ReactNode;
 }
 
-export default function InterestPopover({ trigger, label, triggerClassName, align = "left", children }: InterestPopoverProps) {
+export default function InterestPopover({ trigger, label, triggerClassName, className = "relative w-fit", panelClassName, align = "left", children }: InterestPopoverProps) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -32,7 +34,7 @@ export default function InterestPopover({ trigger, label, triggerClassName, alig
   return (
     <div
       ref={rootRef}
-      className="relative w-fit"
+      className={className}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
       }}
@@ -57,7 +59,7 @@ export default function InterestPopover({ trigger, label, triggerClassName, alig
       {open && (
         <div
           id={panelId}
-          className={`absolute top-full z-20 mt-1 w-max rounded-2xl bg-white p-2 shadow-[0_4px_14px_rgba(0,0,0,0.16)] ${align === "right" ? "right-0" : "left-0"}`}
+          className={panelClassName ?? `absolute top-full z-20 mt-1 w-max rounded-2xl bg-white p-2 shadow-[0_4px_14px_rgba(0,0,0,0.16)] ${align === "right" ? "right-0" : "left-0"}`}
         >
           {children(close)}
         </div>

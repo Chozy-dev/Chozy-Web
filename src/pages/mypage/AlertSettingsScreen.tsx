@@ -1,5 +1,7 @@
 import { useEffect, useId } from "react";
+import { Info } from "lucide-react";
 import Select from "../../components/common/Select";
+import InterestPopover from "../../components/interest/InterestPopover";
 import { ManagementHeader, PreferenceSwitch } from "./MyPageComponents";
 import usePreference from "./usePreference";
 
@@ -65,7 +67,30 @@ export default function AlertSettingsScreen() {
       <div className="space-y-[18px] px-4 pt-5 text-sm leading-[17px] font-medium">
         {ALERT_GROUPS.map(({ id, title, settings }) => (
           <section key={id} aria-labelledby={id}>
-            <h2 id={id} className="mx-2 mb-2">{title}</h2>
+            <div className="relative mx-2 mb-2 flex items-center gap-1">
+              <h2 id={id}>{title}</h2>
+              {id === "product-alerts" && (
+                <InterestPopover
+                  trigger={<Info size={12} aria-hidden />}
+                  label="관심상품 변동 알림 설명"
+                  triggerClassName="relative flex size-3 items-center justify-center before:absolute before:-inset-2"
+                  className=""
+                  panelClassName="absolute top-full -left-2 z-30 mt-2.5 w-[calc(100%+10px)] rounded-2xl bg-white p-4 shadow-[0_2px_10px_rgba(0,0,0,0.12)]"
+                >
+                  {() => (
+                    <>
+                      <span aria-hidden className="absolute -top-2.5 left-[21px] h-0 w-0 border-x-8 border-b-[10px] border-x-transparent border-b-white" />
+                      <p role="note" aria-label="관심상품 알림 갱신 주기" className="text-xs leading-4 font-normal text-zinc-500">
+                        공급가·품절·재입고와 공급 조건 점수는 매일,<br />
+                        쿠팡 시장가와 검색량·시장 조건이 반영된 점수는 보통 주 1회 확인해요.<br />
+                        (상세 화면을 열면 하루 지난 시장가는 바로 갱신)<br />
+                        쿠팡·네이버 조회 한도 안에서 모든 관심상품을 챙기기 위한 주기예요.
+                      </p>
+                    </>
+                  )}
+                </InterestPopover>
+              )}
+            </div>
             <ul className="space-y-6 rounded-[18px] bg-white p-5 text-neutral-600">
               {settings.map(({ name, label, initial }) => (
                 <AlertSwitchRow key={name} name={name} label={label} initial={initial} />
