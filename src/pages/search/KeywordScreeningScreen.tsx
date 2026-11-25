@@ -36,7 +36,7 @@ export default function KeywordScreeningScreen() {
         </div>
       </div>
 
-      <Toast message={message} open={Boolean(message)} onClose={closeToast} bottom="above-button" />
+      <Toast message={message} open={Boolean(message)} onClose={closeToast} bottom="above-nav" />
     </main>
   );
 }
