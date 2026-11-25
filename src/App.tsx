@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import AppShell from "./layouts/AppShell";
 import TabLayout from "./layouts/TabLayout";
 import HomeScreen from "./pages/home/HomeScreen";
+import KeywordScreeningScreen from "./pages/search/KeywordScreeningScreen";
 import InterestScreen from "./pages/interest/InterestScreen";
 import NotificationsView from "./pages/notifications/NotificationsView";
 import LoginScreen from "./pages/auth/LoginScreen";
@@ -30,7 +31,7 @@ export default function App() {
           {/* 하단 탭이 있는 화면 */}
           <Route element={<TabLayout />}>
             <Route path="/" element={<HomeScreen />} />
-            <Route path="/search" element={<Placeholder label="검색" />} />
+            <Route path="/search" element={<KeywordScreeningScreen />} />
             <Route element={<RequireSignIn />}>
               <Route path="/wishlist" element={<InterestScreen />} />
               <Route path="/mypage" element={<MyPageScreen />} />
