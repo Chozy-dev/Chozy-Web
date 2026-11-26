@@ -3,6 +3,7 @@ import { COMPETITION_LABELS, type ScreeningBadgeTone, type ScreeningResult } fro
 const BADGE_TONES: Record<ScreeningBadgeTone, string> = {
   red: "bg-[#ffe6ec] text-rise",
   yellow: "bg-[#fffbe8] text-[#daaa28]",
+  blue: "bg-fall-bg text-fall",
 };
 
 function ScreeningBadge({ label, tone }: { label: string; tone: ScreeningBadgeTone }) {

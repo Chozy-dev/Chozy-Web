@@ -4,7 +4,7 @@ import { getExampleKeywordDetails, getExampleShoppingChange, type ShoppingCatego
 export type ScreeningSort = "upload" | "score" | "volume" | "competition";
 export type CompetitionLevel = "low" | "medium" | "high";
 export type CompetitionFilter = "all" | "medium-or-lower" | "low";
-export type ScreeningBadgeTone = "red" | "yellow";
+export type ScreeningBadgeTone = "red" | "yellow" | "blue";
 
 export interface ScreeningResult {
   id: string;
@@ -29,7 +29,7 @@ const EXAMPLE_SEARCH_VOLUMES = [15300, 24600, 8200, 31800, 5600, 19200, 12700, 9
 const EXAMPLE_METRICS: Omit<ScreeningResult, "id" | "keyword" | "uploadOrder" | "score" | "searchVolume">[] = [
   { scoreTone: "red", competition: "high", competitionTone: "red" },
   { scoreTone: "yellow", competition: "medium", competitionTone: "yellow" },
-  { scoreTone: "red", competition: "high", competitionTone: "red" },
+  { scoreTone: "red", competition: "low", competitionTone: "blue" },
 ];
 
 export function createExampleScreeningResults(keywords: string[], categoryForResult: (id: string) => ShoppingCategory = () => "none"): ScreeningResult[] {
