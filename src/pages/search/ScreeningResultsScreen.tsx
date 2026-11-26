@@ -1,11 +1,11 @@
 import { useCallback, useState } from "react";
-import { Info } from "lucide-react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
 import backArrow from "../../assets/common/back-arrow.svg";
 import Toast from "../../components/common/Toast";
 import ScreeningFilters from "../../components/search/ScreeningFilters";
 import ScreeningResultCard from "../../components/search/ScreeningResultCard";
 import ScreeningSort from "../../components/search/ScreeningSort";
+import ScreeningScoreInfo from "../../components/search/ScreeningScoreInfo";
 import { createExampleScreeningResults, type CompetitionFilter, type ScreeningSort as SortOrder } from "../../data/screening";
 import { KEYWORD_COUNT_LIMIT, normalizeKeywords } from "../../lib/keywordScreening";
 import { selectScreeningResults } from "../../lib/screeningResults";
@@ -40,14 +40,7 @@ export default function ScreeningResultsScreen() {
         <h1 className="text-xl leading-6 font-semibold text-[#1a1a1a]" aria-live="polite">
           스크리닝 결과 ({visibleResults.length}/{results.length}개)
         </h1>
-        <button
-          type="button"
-          onClick={() => setMessage("종합점수 설명을 준비 중이에요.")}
-          className="mt-1.5 flex items-center gap-0.5 text-xs leading-4 text-[#858585]"
-        >
-          종합점수란?
-          <Info size={12} aria-hidden />
-        </button>
+        <ScreeningScoreInfo />
 
         <div className="mt-3">
           <ScreeningSort value={sort} onChange={setSort} />

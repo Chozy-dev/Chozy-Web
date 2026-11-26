@@ -21,7 +21,7 @@ export default function ScreeningSort({ value, onChange }: ScreeningSortProps) {
           type="button"
           aria-pressed={value === option.value}
           onClick={() => onChange(option.value)}
-          className={`rounded-full px-3 py-2 text-xs leading-[14px] font-semibold ${value === option.value ? "bg-burgundy text-white" : "bg-white text-[#858585]"}`}
+          className={`rounded-full px-3 py-2 text-xs leading-[14px] font-semibold ${value === option.value ? "bg-burgundy text-white" : "bg-white text-[#868686]"}`}
         >
           {option.label}
         </button>
