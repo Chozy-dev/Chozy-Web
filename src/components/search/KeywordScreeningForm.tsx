@@ -1,25 +1,22 @@
-import { useState, type FormEvent } from "react";
-import { Upload } from "lucide-react";
+import { useId, useState, type FormEvent } from "react";
 import { KEYWORD_CHARACTER_LIMIT, KEYWORD_COUNT_LIMIT, normalizeKeywords } from "../../lib/keywordScreening";
 import KeywordInput from "./KeywordInput";
 
 interface KeywordScreeningFormProps {
   onScreen: (keywords: string[]) => void;
-  onUpload: () => void;
 }
 
-export default function KeywordScreeningForm({ onScreen, onUpload }: KeywordScreeningFormProps) {
+export default function KeywordScreeningForm({ onScreen }: KeywordScreeningFormProps) {
+  const id = useId();
   const [value, setValue] = useState("");
   const keywords = normalizeKeywords(value);
-  const error = keywords.length > KEYWORD_COUNT_LIMIT
-    ? `키워드는 최대 ${KEYWORD_COUNT_LIMIT}개까지 입력할 수 있어요.`
-    : undefined;
+  const excludedCount = Math.max(0, keywords.length - KEYWORD_COUNT_LIMIT);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!keywords.length || error) return;
+    if (!keywords.length) return;
     setValue(keywords.join("\n"));
-    onScreen(keywords);
+    onScreen(keywords.slice(0, KEYWORD_COUNT_LIMIT));
   }
 
   return (
@@ -32,26 +29,32 @@ export default function KeywordScreeningForm({ onScreen, onUpload }: KeywordScre
       </p>
 
       <div className="mt-4">
-        <KeywordInput value={value} onChange={setValue} maxLength={KEYWORD_CHARACTER_LIMIT} error={error} />
+        <KeywordInput
+          value={value}
+          onChange={setValue}
+          maxLength={KEYWORD_CHARACTER_LIMIT}
+          describedBy={`${id}-help ${id}-count${excludedCount ? ` ${id}-warning` : ""}`}
+        />
       </div>
 
-      <button
-        type="button"
-        onClick={onUpload}
-        className="mt-3 flex h-10 w-full items-center justify-center gap-px rounded-xl bg-[#fff4f7] text-xs leading-[14px] font-semibold text-gray1"
-      >
-        <Upload size={20} strokeWidth={1.5} aria-hidden />
-        엑셀/CSV로 업로드
-      </button>
-
-      <p className="mt-3 text-xs leading-[14px] text-graytext1">
-        중복 키워드는 자동으로 합쳐지고, 앞뒤 공백은 제거돼요.
-      </p>
+      <div className="mt-4 flex flex-wrap items-start justify-between gap-x-1 gap-y-1 text-xs leading-[14px]">
+        <p id={`${id}-help`} className="tracking-[-0.2px] text-graytext1">
+          중복 키워드는 자동으로 합쳐지고, 앞뒤 공백은 제거돼요
+        </p>
+        <span id={`${id}-count`} aria-live="polite" className={`ml-auto shrink-0 ${keywords.length ? "text-rise" : "text-graytext1"}`}>
+          최대 {KEYWORD_COUNT_LIMIT}개·현재 {keywords.length}개
+        </span>
+      </div>
+      {excludedCount > 0 && (
+        <p id={`${id}-warning`} role="status" className="mt-2 text-xs leading-[14px] text-rise">
+          {KEYWORD_COUNT_LIMIT}개까지만 처리돼요, {excludedCount}개는 제외돼요
+        </p>
+      )}
 
       <button
         type="submit"
-        disabled={!keywords.length || Boolean(error)}
-        className="mt-6 flex h-[45px] w-full items-center justify-center rounded-xl bg-burgundy px-3 text-xs leading-[14px] font-medium text-white shadow-[0px_4px_6px_rgba(0,0,0,0.12)] disabled:bg-[#dadada]"
+        disabled={!keywords.length}
+        className="mt-4 flex h-[45px] w-full items-center justify-center rounded-xl bg-burgundy px-3 text-xs leading-[14px] font-medium text-white shadow-[0px_4px_6px_rgba(0,0,0,0.12)] disabled:bg-[#dadada]"
       >
         스크리닝 시작 →
       </button>

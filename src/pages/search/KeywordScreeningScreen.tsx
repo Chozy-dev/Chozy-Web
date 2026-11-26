@@ -27,11 +27,10 @@ export default function KeywordScreeningScreen() {
         <div className="mt-6">
           <KeywordScreeningForm
             onScreen={() => setMessage("스크리닝 결과 화면을 준비 중이에요.")}
-            onUpload={() => setMessage("엑셀/CSV 업로드 기능을 준비 중이에요.")}
           />
         </div>
 
-        <div className="mt-6">
+        <div className="mt-10">
           <RecentScreenings items={RECENT_SCREENINGS} onSelect={() => setMessage("상품별 스크리닝 결과 화면을 준비 중이에요.")} />
         </div>
       </div>
