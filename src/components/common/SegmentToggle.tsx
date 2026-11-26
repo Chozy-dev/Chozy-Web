@@ -10,21 +10,25 @@ interface SegmentToggleProps<T extends string> {
   options: SegmentOption<T>[];
   value: T;
   onChange: (value: T) => void;
+  label?: string;
+  compact?: boolean;
 }
 
-export default function SegmentToggle<T extends string>({ options, value, onChange }: SegmentToggleProps<T>) {
+export default function SegmentToggle<T extends string>({ options, value, onChange, label, compact = false }: SegmentToggleProps<T>) {
   return (
-    <div className="px-1 py-0.5 bg-back rounded-full inline-flex justify-start items-center">
+    <div role={label ? "group" : undefined} aria-label={label} className={`px-1 py-0.5 bg-back rounded-full inline-flex justify-start items-center ${compact ? "h-7" : ""}`}>
       {options.map((o) => {
         const active = value === o.k;
         return (
           <button
             key={o.k}
+            type="button"
+            aria-pressed={active}
             onClick={() => onChange(o.k)}
             className={
               active
-                ? "p-1 bg-white rounded-[100px] flex justify-center items-center text-xs font-medium text-black2"
-                : "p-1.5 flex justify-center items-center text-xs font-normal text-gray1"
+                ? `${compact ? "h-5 px-1.5 leading-[14px]" : "p-1"} bg-white rounded-[100px] flex justify-center items-center text-xs font-medium text-black2`
+                : `${compact ? "h-5 px-1.5 leading-[14px]" : "p-1.5"} flex justify-center items-center text-xs font-normal text-gray1`
             }
           >
             {o.l}
