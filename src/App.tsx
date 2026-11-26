@@ -33,7 +33,7 @@ export default function App() {
           <Route element={<TabLayout />}>
             <Route path="/" element={<HomeScreen />} />
             <Route path="/search" element={<KeywordScreeningScreen />} />
-            <Route path="/search/results" element={<ScreeningResultsScreen />} />
+            <Route path="/search/results/:resultId?" element={<ScreeningResultsScreen />} />
             <Route element={<RequireSignIn />}>
               <Route path="/wishlist" element={<InterestScreen />} />
               <Route path="/mypage" element={<MyPageScreen />} />
