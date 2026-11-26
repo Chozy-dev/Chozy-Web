@@ -48,6 +48,7 @@ export default function BottomNav({ active, compact = false, onChange }: BottomN
       <div className={compact ? "flex min-h-[var(--compact-tab-bar-height)]" : "flex justify-around pt-2 pb-3"}>
         {ITEMS.map(({ key, label, icon }) => {
           const isActive = active === key;
+          const activeColor = key === "search" ? "text-burgundy" : "text-primary-dark";
           return (
             <button
               key={key}
@@ -60,11 +61,11 @@ export default function BottomNav({ active, compact = false, onChange }: BottomN
             >
               <MaskIcon
                 src={icon}
-                className={`size-7 shrink-0 ${isActive ? "text-primary-dark" : compact ? "text-[#cdcdcd]" : "text-gray-300"}`}
+                className={`size-7 shrink-0 ${isActive ? activeColor : compact ? "text-[#cdcdcd]" : "text-gray-300"}`}
               />
               <span
-                className={`text-xs ${compact ? "leading-[14px] font-normal" : isActive ? "font-bold" : ""} ${
-                  isActive ? "text-primary-dark" : compact ? "text-gray1" : "text-gray-400"
+                className={`text-xs ${compact ? `leading-[14px] ${isActive && key === "search" ? "font-bold" : "font-normal"}` : isActive ? "font-bold" : ""} ${
+                  isActive ? activeColor : compact ? "text-gray1" : "text-gray-400"
                 }`}
               >
                 {label}
