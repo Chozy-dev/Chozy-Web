@@ -46,7 +46,7 @@ export default function KeywordScreeningForm({ onScreen }: KeywordScreeningFormP
         </span>
       </div>
       {excludedCount > 0 && (
-        <p id={`${id}-warning`} role="status" className="mt-2 text-xs leading-[14px] text-rise">
+        <p id={`${id}-warning`} role="status" className="mt-2 text-xs font-semibold text-rise">
           {KEYWORD_COUNT_LIMIT}개까지만 처리돼요, {excludedCount}개는 제외돼요
         </p>
       )}
