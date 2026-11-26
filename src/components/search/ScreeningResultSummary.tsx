@@ -18,7 +18,7 @@ export default function ScreeningResultSummary({ result }: { result: ScreeningRe
     <>
       <div className="flex items-center justify-between gap-3">
         <h2 className="min-w-0 break-words text-sm leading-[17px] font-medium">{result.keyword}</h2>
-        <ScreeningBadge label={`${result.score}점`} tone={result.scoreTone} />
+        <ScreeningBadge label={result.score === null ? "계산 대기" : `${result.score}점`} tone={result.scoreTone} />
       </div>
       <div className="mt-1 flex flex-wrap items-center gap-x-8 gap-y-1 text-xs leading-[14px]">
         <div className="flex items-center gap-1.5">

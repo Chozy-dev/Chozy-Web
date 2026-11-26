@@ -17,12 +17,12 @@ export default function ScreeningResultsScreen() {
   const { resultId } = useParams();
   const [params] = useSearchParams();
   const keywords = normalizeKeywords(params.getAll("keyword").join("\n")).slice(0, KEYWORD_COUNT_LIMIT);
-  const results = createExampleScreeningResults(keywords);
   const [sort, setSort] = useState<SortOrder>("upload");
   const [minimumVolume, setMinimumVolume] = useState("");
   const [competition, setCompetition] = useState<CompetitionFilter>("all");
   const [message, setMessage] = useState("");
   const [detailPreferences, setDetailPreferences] = useState<Record<string, ScreeningDetailPreferences>>({});
+  const results = createExampleScreeningResults(keywords, (id) => detailPreferences[id]?.category ?? "none");
   const closeToast = useCallback(() => setMessage(""), []);
   const visibleResults = selectScreeningResults(results, sort, Number(minimumVolume) || 0, competition);
   const selectedResult = results.find((result) => result.id === resultId);

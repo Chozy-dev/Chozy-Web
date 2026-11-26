@@ -14,7 +14,7 @@ export function selectScreeningResults(
     ))
     .sort((a, b) => {
       let difference = 0;
-      if (sort === "score") difference = b.score - a.score;
+      if (sort === "score") difference = (b.score ?? -1) - (a.score ?? -1);
       if (sort === "volume") difference = b.searchVolume - a.searchVolume;
       if (sort === "competition") difference = COMPETITION_ORDER[a.competition] - COMPETITION_ORDER[b.competition];
       return difference || a.uploadOrder - b.uploadOrder;
