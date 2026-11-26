@@ -4,11 +4,12 @@ import KeywordInput from "./KeywordInput";
 
 interface KeywordScreeningFormProps {
   onScreen: (keywords: string[]) => void;
+  initialValue?: string;
 }
 
-export default function KeywordScreeningForm({ onScreen }: KeywordScreeningFormProps) {
+export default function KeywordScreeningForm({ onScreen, initialValue = "" }: KeywordScreeningFormProps) {
   const id = useId();
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(initialValue);
   const keywords = normalizeKeywords(value);
   const excludedCount = Math.max(0, keywords.length - KEYWORD_COUNT_LIMIT);
 

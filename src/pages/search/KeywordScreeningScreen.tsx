@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { createSearchParams, useLocation, useNavigate } from "react-router";
 import logo from "../../assets/home/logo.svg";
 import Toast from "../../components/common/Toast";
 import KeywordScreeningForm from "../../components/search/KeywordScreeningForm";
@@ -7,8 +8,16 @@ import SearchModeTabs from "../../components/search/SearchModeTabs";
 import { RECENT_SCREENINGS } from "../../data/search";
 
 export default function KeywordScreeningScreen() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [message, setMessage] = useState("");
   const closeToast = useCallback(() => setMessage(""), []);
+  const initialValue = typeof location.state?.keywordDraft === "string" ? location.state.keywordDraft : "";
+
+  function startScreening(keywords: string[]) {
+    navigate("/search", { replace: true, state: { keywordDraft: keywords.join("\n") } });
+    navigate({ pathname: "/search/results", search: createSearchParams({ keyword: keywords }).toString() }, { state: { fromSearch: true } });
+  }
 
   return (
     <main className="min-h-dvh bg-white pb-[calc(var(--compact-tab-bar-height)+env(safe-area-inset-bottom,0px)+24px)] text-black1">
@@ -26,12 +35,13 @@ export default function KeywordScreeningScreen() {
 
         <div className="mt-6">
           <KeywordScreeningForm
-            onScreen={() => setMessage("스크리닝 결과 화면을 준비 중이에요.")}
+            initialValue={initialValue}
+            onScreen={startScreening}
           />
         </div>
 
         <div className="mt-10">
-          <RecentScreenings items={RECENT_SCREENINGS} onSelect={() => setMessage("상품별 스크리닝 결과 화면을 준비 중이에요.")} />
+          <RecentScreenings items={RECENT_SCREENINGS} onSelect={(item) => startScreening([item.keyword])} />
         </div>
       </div>
 
