@@ -4,16 +4,18 @@ import type { InputHTMLAttributes } from "react";
 
 interface TextInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "className"> {
   label?: string;
+  type?: "text" | "url";
+  variant?: "default" | "search";
   className?: string;
 }
 
-export default function TextInput({ label, className = "", ...props }: TextInputProps) {
+export default function TextInput({ label, type = "text", variant = "default", className = "", ...props }: TextInputProps) {
   return (
     <div className={className}>
       {label && <label className="block text-xs text-gray-500 mb-1.5">{label}</label>}
       <input
-        type="text"
-        className="w-full text-sm border border-gray-200 rounded-xl px-3.5 py-3 outline-none placeholder:text-gray-300 focus:border-primary"
+        type={type}
+        className={`w-full rounded-xl border py-3 text-sm outline-none focus:border-primary ${variant === "search" ? "h-[45px] border-divider px-[19px] leading-[17px] font-medium text-black1 placeholder:text-gray1" : "border-gray-200 px-3.5 placeholder:text-gray-300"}`}
         {...props}
       />
     </div>
