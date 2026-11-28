@@ -1,6 +1,7 @@
 import { useId, useState, type FormEvent } from "react";
 import { KEYWORD_CHARACTER_LIMIT, KEYWORD_COUNT_LIMIT, normalizeKeywords } from "../../lib/keywordScreening";
 import KeywordInput from "./KeywordInput";
+import SearchSubmitButton from "./SearchSubmitButton";
 
 interface KeywordScreeningFormProps {
   onScreen: (keywords: string[]) => void;
@@ -52,13 +53,7 @@ export default function KeywordScreeningForm({ onScreen, initialValue = "" }: Ke
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={!keywords.length}
-        className="mt-4 flex h-[45px] w-full items-center justify-center rounded-xl bg-burgundy px-3 text-xs leading-[14px] font-medium text-white shadow-[0px_4px_6px_rgba(0,0,0,0.12)] disabled:bg-[#dadada]"
-      >
-        스크리닝 시작 →
-      </button>
+      <SearchSubmitButton disabled={!keywords.length} className="mt-4" />
     </form>
   );
 }

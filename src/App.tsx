@@ -3,6 +3,7 @@ import AppShell from "./layouts/AppShell";
 import TabLayout from "./layouts/TabLayout";
 import HomeScreen from "./pages/home/HomeScreen";
 import KeywordScreeningScreen from "./pages/search/KeywordScreeningScreen";
+import UrlAnalysisScreen from "./pages/search/UrlAnalysisScreen";
 import ScreeningResultsScreen from "./pages/search/ScreeningResultsScreen";
 import InterestScreen from "./pages/interest/InterestScreen";
 import NotificationsView from "./pages/notifications/NotificationsView";
@@ -33,6 +34,8 @@ export default function App() {
           <Route element={<TabLayout />}>
             <Route path="/" element={<HomeScreen />} />
             <Route path="/search" element={<KeywordScreeningScreen />} />
+            <Route path="/search/url" element={<UrlAnalysisScreen />} />
+            <Route path="/search/url/manual" element={<UrlAnalysisScreen manual />} />
             <Route path="/search/results/:resultId?" element={<ScreeningResultsScreen />} />
             <Route element={<RequireSignIn />}>
               <Route path="/wishlist" element={<InterestScreen />} />

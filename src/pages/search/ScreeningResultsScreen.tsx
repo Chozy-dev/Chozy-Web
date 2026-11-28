@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router";
+import { useEffect, useState } from "react";
+import { createSearchParams, Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router";
 import backArrow from "../../assets/common/back-arrow.svg";
-import Toast from "../../components/common/Toast";
 import ScreeningFilters from "../../components/search/ScreeningFilters";
 import ScreeningResultCard from "../../components/search/ScreeningResultCard";
 import ScreeningSort from "../../components/search/ScreeningSort";
@@ -20,10 +19,8 @@ export default function ScreeningResultsScreen() {
   const [sort, setSort] = useState<SortOrder>("upload");
   const [minimumVolume, setMinimumVolume] = useState("");
   const [competition, setCompetition] = useState<CompetitionFilter>("all");
-  const [message, setMessage] = useState("");
   const [detailPreferences, setDetailPreferences] = useState<Record<string, ScreeningDetailPreferences>>({});
   const results = createExampleScreeningResults(keywords, (id) => detailPreferences[id]?.category ?? "none");
-  const closeToast = useCallback(() => setMessage(""), []);
   const visibleResults = selectScreeningResults(results, sort, Number(minimumVolume) || 0, competition);
   const selectedResult = results.find((result) => result.id === resultId);
   const selectedResultVisible = visibleResults.some((result) => result.id === resultId);
@@ -74,7 +71,7 @@ export default function ScreeningResultsScreen() {
                 result={selectedResult}
                 preferences={detailPreferences[resultId] ?? { category: "none", period: "12m" }}
                 onPreferencesChange={(preferences) => setDetailPreferences((previous) => ({ ...previous, [resultId]: preferences }))}
-                onAnalyze={() => setMessage("정밀 분석 화면을 준비 중이에요.")}
+                onAnalyze={() => navigate({ pathname: "/search/url", search: createSearchParams({ keyword: selectedResult.keyword }).toString() })}
               />
             </div>
           ) : (
@@ -111,7 +108,6 @@ export default function ScreeningResultsScreen() {
         )}
       </div>
 
-      <Toast message={message} open={Boolean(message)} onClose={closeToast} bottom="above-nav" />
     </main>
   );
 }
