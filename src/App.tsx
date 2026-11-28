@@ -35,6 +35,7 @@ export default function App() {
             <Route path="/" element={<HomeScreen />} />
             <Route path="/search" element={<KeywordScreeningScreen />} />
             <Route path="/search/url" element={<UrlAnalysisScreen />} />
+            <Route path="/search/url/manual" element={<UrlAnalysisScreen manual />} />
             <Route path="/search/results/:resultId?" element={<ScreeningResultsScreen />} />
             <Route element={<RequireSignIn />}>
               <Route path="/wishlist" element={<InterestScreen />} />
