@@ -1,14 +1,12 @@
-import { Info } from "lucide-react";
 import { URL_REPORT_SECTIONS } from "../../data/urlAnalysis";
+import UrlReportInfo from "./UrlReportInfo";
 
-export default function UrlReportPreview({ onInfo }: { onInfo: () => void }) {
+export default function UrlReportPreview() {
   return (
     <section aria-labelledby="url-report-preview-title">
-      <div className="flex items-center gap-1">
+      <div className="relative flex items-center gap-1">
         <h2 id="url-report-preview-title" className="text-base leading-[19px] font-semibold text-[#1a1a1a]">이런 자료를 받아보실 수 있어요.</h2>
-        <button type="button" onClick={onInfo} aria-label="분석 자료 안내" className="relative shrink-0 text-[#868686] before:absolute before:-inset-2">
-          <Info size={14} aria-hidden />
-        </button>
+        <UrlReportInfo />
       </div>
       <ol className="mt-6 px-2">
         {URL_REPORT_SECTIONS.map((section, index) => (

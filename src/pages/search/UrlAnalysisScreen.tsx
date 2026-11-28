@@ -28,7 +28,7 @@ export default function UrlAnalysisScreen() {
           />
         </div>
         <div className="mt-10">
-          <UrlReportPreview onInfo={() => setMessage("분석 자료 상세 안내를 준비 중이에요.")} />
+          <UrlReportPreview />
         </div>
         <div className="mt-[38px]">
           <RecentUrlAnalyses items={RECENT_URL_ANALYSES} onSelect={() => setMessage("저장된 리포트 화면을 준비 중이에요.")} />
